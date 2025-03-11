@@ -75,6 +75,5 @@ if [[ "$swap_device" != "none" ]]; then
 
     echo "${INFO} Making swap..."
     command "mkswap -f $swap_device"
-    sleep 1
     command swapon "$swap_device"
 fi
