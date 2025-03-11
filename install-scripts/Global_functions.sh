@@ -25,10 +25,15 @@ LOG_FILE="install.log"
 # Define the directory where your scripts are located
 script_directory=install-scripts
 
-# Check if preset is provided
-if [ ! -z "$use_preset" ]; then
+# If $use_preset is provided and if exists, then use it
+if [[ ! -z "$use_preset" ]]; then
+  if [ -f "$use_preset" ]; then
     source "$use_preset"
+  else
+    echo "${WARNING} Preset $use_preset not found. The script will continue in ask mode."
+  fi
 fi
+
 
 custom_read(){
   if [[ ! -z "${!2}" ]]; then
@@ -115,7 +120,8 @@ command() {
 
     echo "${INFO} Running: $cmd" | tee -a "$LOG_FILE"
     
-    if eval "$cmd" > "$LOG_FILE" 2>&1; then
+    if eval "$cmd"; then # for debugging use the line below
+    # if eval "$cmd" > "$LOG_FILE" 2>&1; then # for debugging use the line above
         echo "${OK} Success." | tee -a "$LOG_FILE"
     else
         echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"

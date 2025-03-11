@@ -79,10 +79,7 @@ ask_custom_option " Enter your CPU vendor" "intel amd" cpu_vendor
 
 echo
 echo "${INFO} Installing the base system...${RESET}"
-echo 
-
-sleep 1
-
+echo "${INFO}This may take a while, please be patient...${RESET}"
 command "pacstrap /mnt base linux linux-firmware git sudo" #"$cpu_vendor"-ucode
 echo
 echo ${GREEN} Install completed!${RESET}
@@ -97,8 +94,11 @@ command "genfstab -U /mnt >> /mnt/etc/fstab"
 echo
 echo ${INFO} Copying arch-chroot-scripts directory to the new system...${RESET}
 command "cp -r assets/arch-chroot-scripts /mnt/root"
-command "cp -r presets /mnt/root/arch-chroot-scripts"
 command "chmod +x /mnt/root/arch-chroot-scripts/*"
+
+if [ -n "$use_preset" ]; then
+    command "cp $use_preset /mnt/root/arch-chroot-scripts/preset.sh"
+fi
 
 # Enter the new system
 echo
