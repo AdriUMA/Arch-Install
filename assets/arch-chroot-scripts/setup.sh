@@ -16,7 +16,7 @@ echo
 another_locale="Y"
 while [ "$another_locale" == "Y" ]; do
     unset another_locale
-    
+
     custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF8, es_ES.UTF-8 UTF8)${RESET}" locale
     echo "$locale" >> /etc/locale.gen
     
@@ -26,6 +26,7 @@ while [ "$another_locale" == "Y" ]; do
     fi
 
     ask_yes_no " Do you want to add another locale?" another_locale
+    unset locale
 done
 
 echo
@@ -35,12 +36,12 @@ command "locale-gen"
 # Keyboard layout
 echo
 echo "${INFO} Keyboard layout${RESET}"
-custom_read -p "${CAT} ${SKY_BLUE}Please enter your keyboard layout (ex. es, us): ${RESET}" keyboard_layout
+custom_read "${CAT} ${SKY_BLUE}Please enter your keyboard layout (ex. es, us): ${RESET}" keyboard_layout
 echo "KEYMAP=$keyboard_layout" > /etc/vconsole.conf
 
 # Hostname
 echo
-custom_read -p "${CAT} ${SKY_BLUE}Please enter your hostname: ${RESET}" hostname
+custom_read "${CAT} ${SKY_BLUE}Please enter your hostname: ${RESET}" hostname
 echo "${INFO} Setting hostname $hostname${RESET}"
 echo "$hostname" > /etc/hostname
 echo "127.0.0.1     localhost" >> /etc/hosts
@@ -54,9 +55,9 @@ command "systemctl enable NetworkManager"
 echo "${INFO} Setting root password...${RESET}"
 if [ -z "$root_pass" ]; then
     while true; do
-        custom_read -sp "${CAT} ${SKY_BLUE}Enter root password: ${RESET}" root_pass
+        custom_read " Enter root password: ${RESET}" root_pass
         echo
-        custom_read -sp "${CAT} ${SKY_BLUE}Re-enter root password: ${RESET}" root_pass2
+        custom_read " Re-enter root password: ${RESET}" root_pass2
         echo
         [ "$root_pass" = "$root_pass2" ] && break
         echo "${ERROR} Passwords do not match. Please try again."
@@ -66,14 +67,14 @@ command "echo root:$root_pass | chpasswd"
 
 # User name and password
 echo
-custom_read -p "${CAT} ${SKY_BLUE}Please enter your username: ${RESET}" user_name
+custom_read " Please enter your username: ${RESET}" user_name
 command "useradd -m $user_name"
 echo "${INFO} Setting user password...${RESET}"
 if [ -z "$user_pass" ]; then
     while true; do
-        custom_read -sp "${CAT} ${SKY_BLUE}Enter user password: ${RESET}" user_pass
+        custom_read " Enter user password: ${RESET}" user_pass
         echo
-        custom_read -sp "${CAT} ${SKY_BLUE}Re-enter user password: ${RESET}" user_pass2
+        custom_read " Re-enter user password: ${RESET}" user_pass2
         echo
         [ "$user_pass" = "$user_pass2" ] && break
         echo "${ERROR} Passwords do not match. Please try again."
