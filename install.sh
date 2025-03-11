@@ -10,8 +10,11 @@ if [[ "$1" == "--preset" ]]; then
         exit 1
     fi
     
-    source "install-scripts/Global_functions.sh" "$(realpath $2)"
+    use_preset="$(realpath $2)"
+    echo "${INFO} Using preset file: $use_preset"
+    source "install-scripts/Global_functions.sh" "$use_preset"
 else 
+    echo "${INFO} Using default settings."
     source "install-scripts/Global_functions.sh"
 fi
 
