@@ -25,6 +25,12 @@ LOG_FILE="install.log"
 # Define the directory where your scripts are located
 script_directory=install-scripts
 
+# Function to colorize prompts
+colorize_prompt() {
+    local color="$1"
+    local message="$2"
+    echo -n "${color}${message}$(tput sgr0)"
+}
 
 # Function to ask a yes/no question and set the response in a variable
 ask_yes_no() {
