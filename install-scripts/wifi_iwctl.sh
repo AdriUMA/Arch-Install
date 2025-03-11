@@ -1,5 +1,3 @@
-source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
-
 # Unblocking WiFi
 command rfkill unblock all
 

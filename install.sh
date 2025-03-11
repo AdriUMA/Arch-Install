@@ -48,7 +48,7 @@ echo
 # Timezone
 custom_read " Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
 echo "${INFO} Setting timezone...${RESET}"
-command timedatectl set-timezone "$timezone"
+command "timedatectl set-timezone $timezone"
 command timedatectl set-ntp true
 echo
 
@@ -97,6 +97,7 @@ command genfstab -U /mnt >> /mnt/etc/fstab
 echo
 echo ${INFO} Copying arch-chroot-scripts directory to the new system...${RESET}
 command cp -r assets/arch-chroot-scripts /mnt/root
+command cp -r presets /mnt/root/arch-chroot-scripts
 command chmod +x /mnt/root/arch-chroot-scripts/*
 
 # Enter the new system

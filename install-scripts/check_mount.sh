@@ -1,9 +1,5 @@
 #!/bin/bash
 
-source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
-
-LOG_FILE="script_output.log"
-
 echo "${INFO} Checking if /mnt is a separate mounted device..." | tee -a "$LOG_FILE"
 
 # Verificar si /mnt es una unidad montada y no solo una carpeta
