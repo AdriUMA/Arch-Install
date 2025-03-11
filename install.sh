@@ -75,7 +75,7 @@ execute_script "check_mount.sh"
 echo
 
 # Install the base system
-ask_custom_option "Enter your CPU vendor (intel/amd):" "intel amd" cpu_vendor
+ask_custom_option " Enter your CPU vendor" "intel amd" cpu_vendor
 
 echo
 echo "${INFO} Installing the base system...${RESET}"
@@ -83,7 +83,7 @@ echo
 
 sleep 1
 
-command pacstrap /mnt base linux linux-firmware git sudo #"$cpu_vendor"-ucode
+command "pacstrap /mnt base linux linux-firmware git sudo" #"$cpu_vendor"-ucode
 echo
 echo ${GREEN} Install completed!${RESET}
 
@@ -91,24 +91,24 @@ echo ${GREEN} Install completed!${RESET}
 echo
 echo ${INFO} Generating fstab...${RESET}
 
-command genfstab -U /mnt >> /mnt/etc/fstab
+command "genfstab -U /mnt >> /mnt/etc/fstab"
 
 # Copy the arch-chroot-scripts directory to the new system
 echo
 echo ${INFO} Copying arch-chroot-scripts directory to the new system...${RESET}
-command cp -r assets/arch-chroot-scripts /mnt/root
-command cp -r presets /mnt/root/arch-chroot-scripts
-command chmod +x /mnt/root/arch-chroot-scripts/*
+command "cp -r assets/arch-chroot-scripts /mnt/root"
+command "cp -r presets /mnt/root/arch-chroot-scripts"
+command "chmod +x /mnt/root/arch-chroot-scripts/*"
 
 # Enter the new system
 echo
 echo ${INFO} Entering the new system...${RESET}
-command arch-chroot /mnt /root/arch-chroot-scripts/setup.sh
+command "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh"
 
 # Remove the arch-chroot-scripts directory from the new system
 echo
 echo ${INFO} Removing arch-chroot-scripts directory from the new system...${RESET}
-command rm -rf /mnt/root/arch-chroot-scripts
+command "rm -rf /mnt/root/arch-chroot-scripts"
 
 echo
 echo "${INFO} Install completed!${RESET}"
