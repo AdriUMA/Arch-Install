@@ -44,6 +44,7 @@ colorize_prompt() {
 ask_yes_no() {
   if [[ ! -z "${!2}" ]]; then
     echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
+    return;
   else
     eval "$2=''" 
   fi
