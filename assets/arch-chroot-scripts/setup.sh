@@ -8,7 +8,7 @@ source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
 # Set the timezone
 echo
 echo "${INFO} Setting timezone $timezone${RESET}"
-command "ln -sf /usr/share/zoneinfo/"$timezone" /etc/localtime"
+command "ln -sf /usr/share/zoneinfo/$timezone /etc/localtime"
 command "hwclock --systohc"
 
 # Set the locale

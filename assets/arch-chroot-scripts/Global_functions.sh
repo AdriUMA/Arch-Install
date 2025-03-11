@@ -25,6 +25,15 @@ LOG_FILE="install.log"
 # Define the directory where your scripts are located
 script_directory=install-scripts
 
+# If $use_preset is provided and if exists, then use it
+if [[ ! -z "$use_preset" ]]; then
+  if [ -f "$use_preset" ]; then
+    source "$use_preset"
+  else
+    echo "${WARNING} Preset $use_preset not found. The script will continue in ask mode."
+  fi
+fi
+
 custom_read(){
   if [[ ! -z "${!2}" ]]; then
     echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
@@ -90,7 +99,7 @@ execute_script() {
         chmod +x "$script_path"
         if [ -x "$script_path" ]; then
             echo "${INFO} Running script '$script'..."
-            if ! ./$script_path; then
+            if ! source "$script_path"; then
                 echo "${ERROR} Failed to execute script '$script'. Aborting..."
                 exit 1
             fi

@@ -80,7 +80,17 @@ ask_custom_option " Enter your CPU vendor" "intel amd" cpu_vendor
 echo
 echo "${INFO} Installing the base system...${RESET}"
 echo "${INFO}This may take a while, please be patient...${RESET}"
-command "pacstrap /mnt base linux linux-firmware git sudo" #"$cpu_vendor"-ucode
+
+pacstrap_command="pacstrap /mnt base linux linux-firmware git sudo" #"$cpu_vendor"-ucode
+echo "${INFO} Running: $pacstrap_command" | tee -a "$LOG_FILE"
+if eval "$pacstrap_command"; then 
+    echo "${OK} Success." | tee -a "$LOG_FILE"
+else
+    echo "${ERROR} Fatal error. Aborting..." | tee -a "$LOG_FILE"
+    exit 1
+fi
+
+command  
 echo
 echo ${GREEN} Install completed!${RESET}
 

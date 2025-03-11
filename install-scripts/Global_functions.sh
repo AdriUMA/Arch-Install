@@ -34,7 +34,6 @@ if [[ ! -z "$use_preset" ]]; then
   fi
 fi
 
-
 custom_read(){
   if [[ ! -z "${!2}" ]]; then
     echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
@@ -120,8 +119,7 @@ command() {
 
     echo "${INFO} Running: $cmd" | tee -a "$LOG_FILE"
     
-    if eval "$cmd"; then # for debugging use the line below
-    # if eval "$cmd" > "$LOG_FILE" 2>&1; then # for debugging use the line above
+    if eval "$cmd" > "$LOG_FILE" 2>&1; then
         echo "${OK} Success." | tee -a "$LOG_FILE"
     else
         echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
