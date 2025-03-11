@@ -29,15 +29,17 @@ ask_yes_no " Is your root partition on a HDD?" root_hdd
 ask_yes_no " Is your home partition on a HDD?" home_hdd
 
 echo 
-echo "${INFO} mkfs.$(get_format $root_hdd) $root_device"
-read -p "Press enter to continue" yea
 
-
+echo "${INFO} mkfs.$(get_format $root_hdd) $root_device on /mnt"
+read -p "Press enter to continue"
 
 # Format the root partition
 echo "${INFO} Formatting and mounting the root partition..."
 command mkfs.$(get_format "$root_hdd") "$root_device"
 command mount "$root_device" /mnt
+
+echo "${INFO} mkfs.fat -F 32  $boot_device on /mnt/boot"
+read -p "Press enter to continue"
 
 # Format the boot partition
 echo "${INFO} Formatting and mounting the boot partition..."
@@ -47,6 +49,9 @@ command mount "$boot_device" /mnt/boot
 
 # Format the home partition
 if [[ "$home_device" != "none" ]]; then
+    echo "${INFO} mkfs.$(get_format $home_hdd) $root_device on /mnt/home"
+    read -p "Press enter to continue"
+
     echo "${INFO} Formatting and mounting the home partition..."
     command mkfs.$(get_format "$home_hdd") -f "$home_device"
     command mkdir /mnt/home
@@ -55,6 +60,9 @@ fi
 
 # Format the swap partition
 if [[ "$swap_device" != "none" ]]; then
+    echo "${INFO} mkswap and swapon $swap_device"
+    read -p "Press enter to continue"
+
     echo "${INFO} Formatting the swap partition..."
     command mkswap -f "$swap_device"
     command swapon "$swap_device"
