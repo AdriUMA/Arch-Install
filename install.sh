@@ -10,7 +10,7 @@ if [[ "$1" == "--preset" ]]; then
         exit 1
     fi
     
-    source "install-scripts/Global_functions.sh" $(realpath "$2")
+    source "install-scripts/Global_functions.sh" "$(realpath $2)"
 else 
     source "install-scripts/Global_functions.sh"
 fi
