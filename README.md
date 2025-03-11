@@ -2,7 +2,8 @@
 
 ## 🤖 Operating System Installation
 
-> [!NOTE] Do you want to do the installation on your own? Follow the [official guide](https://wiki.archlinux.org/title/Installation_guide) or [my guide](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md).
+> [!NOTE]
+> Do you want to do the installation on your own? Follow the [official guide](https://wiki.archlinux.org/title/Installation_guide) or [my guide](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md).
 
 ### ⚠️ Cautions ⚠️
 
