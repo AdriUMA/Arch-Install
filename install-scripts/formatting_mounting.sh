@@ -44,7 +44,7 @@ confirm_format_and_mount(){
     local mount_point=$(findmnt -n -o TARGET "$device")
     if [ -n "$mount_point" ]; then
         echo "${INFO} Unmounted $device from $mount_point"
-        umount -f "$mount_point"
+        umount -fR "$mount_point"
     fi
 
     mkdir -p "$location"
