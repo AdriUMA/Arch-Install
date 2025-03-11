@@ -1,3 +1,5 @@
+source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
+
 echo
 echo "${ORANGE}Formatting and Mounting${RESET}"
 echo "${WARNING}ATTENTION: At this point, you should have the partitions and swap space ready.${RESET}"

@@ -95,7 +95,7 @@ execute_script() {
         chmod +x "$script_path"
         if [ -x "$script_path" ]; then
             echo "${INFO} Running script '$script'..."
-            if ! ./$script_path; then
+            if ! source "$script_path"; then
                 echo "${ERROR} Failed to execute script '$script'. Aborting..."
                 exit 1
             fi
