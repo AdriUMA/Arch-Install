@@ -2,22 +2,20 @@
 
 ## 🤖 Operating System Installation
 
-> [!WARNING]
-> If for any reason SecureBoot needs to be enabled after installing Arch, I recommend deleting all BIOS keys before starting.
+> [!NOTE] Do you want to do the installation on your own? Follow the [official guide](https://wiki.archlinux.org/title/Installation_guide) or [my guide](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md).
 
-> [!CAUTION]
-> Only UEFI support (keep reading if you dont know what system is yours).
-> Install Windows before Arch for dual boot.
-> Dual boot installation will fail if you have Windows 11 with BitLocker enabled.
+### ⚠️ Cautions ⚠️
 
-Do you want to do the installation on your own? Follow the [official guide](https://wiki.archlinux.org/title/Installation_guide) or [my guide](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md).
+- Only UEFI support (keep reading if you dont know what system is yours).
+- Install Windows before Arch for dual boot. Dual boot installation will fail if you have Windows 11 with BitLocker enabled.
+- If for any reason SecureBoot needs to be enabled after installing Arch, I recommend deleting all BIOS keys before starting.
 
-### Preparation
+### 💿 Preparation
 
 [Download ISO](https://archlinux.org/download/) of Arch Linux and [flash](https://www.balena.io/etcher) an external drive.
 Connect the device via Ethernet and boot the live system from the bootable drive.
 
-### Installation
+### ⌨️ Installation
 
 (Optional) Configure the keyboard layout.
 
@@ -28,6 +26,7 @@ loadkeys es
 ### 🦿 Partitions and Formats
 
 > [!NOTE]
+> This is the only manual step.
 > For any doubt, see [official guide](https://wiki.archlinux.org/title/Installation_guide).
 
 We will check if the hardware's boot mode is EFI or BIOS for the installation of the operating system.
@@ -74,6 +73,4 @@ chmod +x install.sh
 ./install.sh
 ```
 
-## ⚠️ If everything went well but GRUB does not appear in the BIOS boot menu ⚠️
-
-Go to [guide troubleshooting](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md#troubleshooting)
+🔴 Something went wrong? [Guide troubleshooting](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md#troubleshooting)
