@@ -39,8 +39,13 @@ confirm_format_and_mount(){
     fi
 
     echo "${INFO} Formatting and mounting the partition..."
-    umount -f "$device" 2>/dev/null || true
-    sleep 1
+    
+    # Unmount the device if it is already mounted
+    local mount_point=$(findmnt -n -o TARGET "$device")
+    if [ -n "$mount_point" ]; then
+        umount -f "$mount_point"
+    fi
+
     mkdir -p "$location"
     command "$formatting_command" "$device"
     command "mount $device $location"
