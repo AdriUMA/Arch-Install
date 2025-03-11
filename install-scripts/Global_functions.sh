@@ -35,11 +35,8 @@ colorize_prompt() {
 # Function to ask a yes/no question and set the response in a variable
 ask_yes_no() {
   if [[ ! -z "${!2}" ]]; then
-    echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
-    if [[ "${!2}" = [Yy] ]]; then
+      echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
       return 0
-    else
-      return 1
     fi
   else
     eval "$2=''" 
