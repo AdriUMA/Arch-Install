@@ -59,9 +59,10 @@ if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     execute_script "wifi_iwctl.sh"
 fi
 
-echo
+# Check internet connection
+execute_script "check_internet.sh"
 
-echo "$root_device"
+echo
 
 # Format and mount partitions
 execute_script "formatting_mounting.sh"
