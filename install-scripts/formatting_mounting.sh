@@ -73,5 +73,6 @@ if [[ "$swap_device" != "none" ]]; then
 
     echo "${INFO} Formatting the swap partition..."
     command mkswap -f "$swap_device"
+    sleep 1
     command swapon "$swap_device"
 fi
