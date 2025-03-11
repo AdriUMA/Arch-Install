@@ -32,6 +32,8 @@ if [ -z "$1" ]; then
     source $1
 fi
 
+echo "$timezone"
+
 custom_read(){
   if [[ ! -z "${!2}" ]]; then
     echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
