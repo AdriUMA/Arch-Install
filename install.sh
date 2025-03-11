@@ -10,8 +10,7 @@ if [[ "$1" == "--preset" ]]; then
         exit 1
     fi
     
-    use_preset=$(realpath "$2")
-    export use_preset
+    export use_preset=$(realpath "$2")
 fi
 
 source "install-scripts/Global_functions.sh"
@@ -47,7 +46,7 @@ echo "${OK} EFI mode detected.${RESET}"
 echo
 
 # Timezone
-custom_read "Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
+custom_read " Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
 echo "${INFO} Setting timezone...${RESET}"
 command timedatectl set-timezone "$timezone"
 command timedatectl set-ntp true
