@@ -81,7 +81,7 @@ echo
 echo "${INFO} Installing the base system...${RESET}"
 echo "${INFO}This may take a while, please be patient...${RESET}"
 
-command_verbose "pacstrap /mnt base linux linux-firmware git sudo" # $cpu_vendor-ucode
+command_verbose "pacstrap /mnt base linux linux-firmware git sudo networkmanager" # $cpu_vendor-ucode
 
 # Generate fstab
 echo

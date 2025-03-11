@@ -1,7 +1,11 @@
 # If preset.sh is provided, define it (this is for Global_functions.sh):
+preset_location_old="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 preset_location="$(dirname $(readlink -f $0))/preset.sh"
+echo "$preset_location_old"
+echo "ESTE: $preset_location"
+
 if [ -f "$preset_location" ]; then
-    use_preset="$(realpath preset.sh)"
+    use_preset="$preset_location"
 fi
 
 source "$(dirname $(readlink -f $0))/Global_functions.sh"
@@ -18,7 +22,7 @@ another_locale="Y"
 while true; do
     unset another_locale
 
-    custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF8, es_ES.UTF-8 UTF8)${RESET}" locale
+    custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF-8, es_ES.UTF-8 UTF-8)${RESET}" locale
     echo "$locale" >> /etc/locale.gen
     
     # If we are running using preset, we don't want to ask for more locales
@@ -47,12 +51,12 @@ read
 # Keyboard layout
 echo
 echo "${INFO} Keyboard layout${RESET}"
-custom_read "${CAT} ${SKY_BLUE}Please enter your keyboard layout (ex. es, us): ${RESET}" keyboard_layout
+custom_read " Please enter your keyboard layout (example: es, us)${RESET}" keyboard_layout
 echo "KEYMAP=$keyboard_layout" > /etc/vconsole.conf
 
 # Hostname
 echo
-custom_read "${CAT} ${SKY_BLUE}Please enter your hostname: ${RESET}" hostname
+custom_read " Please enter your hostname${RESET}" hostname
 echo "${INFO} Setting hostname $hostname${RESET}"
 echo "$hostname" > /etc/hostname
 echo "127.0.0.1     localhost" >> /etc/hosts
