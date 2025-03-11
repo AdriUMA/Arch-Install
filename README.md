@@ -76,6 +76,6 @@ chmod +x install.sh
 
 ## Misc
 
-👀 Looking for [auto-install preconfigured environment](https://github.com/AdriUMA/Arch-Hyprland)
+👀 Looking for [auto-install preconfigured environment](https://github.com/AdriUMA/Hyprland-Install)
 
 🔴 Something went wrong? [Guide troubleshooting](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md#troubleshooting)
