@@ -61,6 +61,8 @@ fi
 
 echo
 
+echo "$root_device"
+
 # Format and mount partitions
 execute_script "formatting_mounting.sh"
 

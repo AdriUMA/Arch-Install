@@ -5,7 +5,7 @@ echo "${ORANGE}Formatting and Mounting${RESET}"
 echo "${WARNING}ATTENTION: At this point, you should have the partitions and swap space ready.${RESET}"
 echo
 lsblk
-echo
+echo "$root_device"
 
 # what device for /
 custom_read " Please enter the device for your root (e.g. /dev/sda1)${RESET}" root_device
