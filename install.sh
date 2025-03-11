@@ -104,11 +104,12 @@ command "genfstab -U /mnt >> /mnt/etc/fstab"
 echo
 echo ${INFO} Copying arch-chroot-scripts directory to the new system...${RESET}
 command "cp -r assets/arch-chroot-scripts /mnt/root"
-command "chmod +x /mnt/root/arch-chroot-scripts/*"
 
 if [ -n "$use_preset" ]; then
     command "cp $use_preset /mnt/root/arch-chroot-scripts/preset.sh"
 fi
+
+command "chmod +x /mnt/root/arch-chroot-scripts/*"
 
 # Enter the new system
 echo

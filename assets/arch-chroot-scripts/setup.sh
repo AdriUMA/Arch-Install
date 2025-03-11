@@ -3,7 +3,7 @@ if [ -f "preset.sh" ]; then
     use_preset="$(realpath preset.sh)"
 fi
 
-source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
+source "$(dirname $(readlink -f $0))/Global_functions.sh"
 
 # Set the timezone
 echo
