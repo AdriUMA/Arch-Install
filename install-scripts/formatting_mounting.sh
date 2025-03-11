@@ -29,13 +29,15 @@ ask_yes_no " Is your root partition on a HDD?" root_hdd
 ask_yes_no " Is your home partition on a HDD?" home_hdd
 
 echo 
+echo "${INFO} mkfs.$(get_format $root_hdd) $root_device"
+read -p "Press enter to continue" yea
+
+
 
 # Format the root partition
 echo "${INFO} Formatting and mounting the root partition..."
-command mkfs.$(get_format "$root_hdd") "$root_device" -f
+command mkfs.$(get_format "$root_hdd") "$root_device"
 command mount "$root_device" /mnt
-
-read -p "Press enter to continue" yea
 
 # Format the boot partition
 echo "${INFO} Formatting and mounting the boot partition..."
