@@ -13,9 +13,9 @@ command "hwclock --systohc"
 
 # Set the locale
 echo
-another_locale="y"
-while [ "$another_locale" == "y" ]; do
-    custom_read "${CAT} ${SKY_BLUE}Please enter the locale you want to add (ex. en_US.UTF-8 UTF8, es_ES.UTF-8 UTF8): ${RESET}" locale
+another_locale="Y"
+while [ "$another_locale" == "Y" ]; do
+    custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF8, es_ES.UTF-8 UTF8): ${RESET}" locale
     echo "$locale" >> /etc/locale.gen
     
     # If we are running using preset, we don't want to ask for more locales
@@ -23,7 +23,7 @@ while [ "$another_locale" == "y" ]; do
         break
     fi
 
-    custom_read -p "${CAT} ${SKY_BLUE}Do you want to add another locale? (y/n): ${RESET}" another_locale
+    ask_yes_no " Do you want to add another locale?" another_locale
 done
 
 echo
