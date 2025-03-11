@@ -36,12 +36,12 @@ confirm_format_and_mount(){
     local location="$3"
 
     if [ "$format_and_mount_ask" == "y" ] || [ "$format_and_mount_ask" == "Y" ]; then
-        echo "${INFO} $location: $formatting_command $device"
+        echo "${INFO} $location: $formatting_command"
         read -p "Press enter to continue"
     fi
 
     echo "${INFO} Formatting and mounting the partition..."
-    command mkdir -p "$location"
+    mkdir -p "$location"
     command "$formatting_command" "$device"
     command mount "$device" "$location"
 }
