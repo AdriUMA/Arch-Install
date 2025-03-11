@@ -39,6 +39,7 @@ confirm_format_and_mount(){
     fi
 
     echo "${INFO} Formatting and mounting the partition..."
+    umount "$device" 2>/dev/null || true
     mkdir -p "$location"
     command "$formatting_command" "$device"
     command "mount $device $location"
