@@ -24,11 +24,16 @@ home_hdd=
 cpu_vendor=
 
 # Locale
-locale="en_US.UTF-8 UTF-8\nes_ES.UTF-8 UTF-8"
+locale="
+en_US.UTF-8 UTF-8
+es_ES.UTF-8 UTF-8
+"
+
+# Keyboard layout
 keyboard_layout="es"
 
 # Hostname and username
-hostname=
+hostname="arch"
 root_pass=
 user_name=
 user_pass=

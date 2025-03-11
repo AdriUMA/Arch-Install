@@ -43,11 +43,6 @@ echo
 echo "${INFO} Generating locales...${RESET}"
 command "locale-gen"
 
-#press enter to continue
-echo
-echo "${INFO} Press enter to continue...${RESET}"
-read
-
 # Keyboard layout
 echo
 echo "${INFO} Keyboard layout${RESET}"
@@ -65,20 +60,16 @@ echo "127.0.1.1     $hostname.localhost        $hostname" >> /etc/hosts
 
 echo "${INFO} Enabling NetworkManager...${RESET}"
 command "systemctl enable NetworkManager"
+echo
 
 # Root password
 echo "${INFO} Setting root password...${RESET}"
 if [ -z "$root_pass" ]; then
-    while true; do
-        custom_read " Enter root password: ${RESET}" root_pass
-        echo
-        custom_read " Re-enter root password: ${RESET}" root_pass2
-        echo
-        [ "$root_pass" = "$root_pass2" ] && break
-        echo "${ERROR} Passwords do not match. Please try again."
+    while ! passwd; do
     done
+else
+    command "echo root:$root_pass | chpasswd"
 fi
-command "echo root:$root_pass | chpasswd"
 
 # User name and password
 echo
