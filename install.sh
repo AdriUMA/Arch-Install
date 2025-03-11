@@ -118,7 +118,7 @@ echo
 echo
 ask_yes_no "Do you want to reboot now?" reboot
 
-if [ "$reboot" == "y" || "$reboot" == "Y" ]; then
+if [ "$reboot" = "y" ] || [ "$reboot" = "Y" ]; then
     echo
     echo ${INFO} Rebooting...${RESET}
     echo

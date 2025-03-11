@@ -76,7 +76,7 @@ fi
 
 # User name and password
 echo
-custom_read " Please enter your username: ${RESET}" user_name
+custom_read " Please enter your username${RESET}" user_name
 command "useradd -m $user_name"
 echo "${INFO} Setting user password...${RESET}"
 if [ -z "$user_pass" ]; then
