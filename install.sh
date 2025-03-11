@@ -43,35 +43,34 @@ fi
 echo
 echo "${INFO} Detecting EFI mode..."
 command ls /sys/firmware/efi/efivars
-echo "${GREEN}EFI mode detected.${RESET}"
+echo "${OK}EFI mode detected.${RESET}"
 echo
 
 # Timezone
 read -p "${CAT} ${SKY_BLUE}Please enter your timezone (ex. Europe/Madrid): ${RESET}" timezone
-
-echo
 echo "${INFO} Setting timezone...${RESET}"
-echo
-
 command timedatectl set-timezone "$timezone"
 command timedatectl set-ntp true
-
-echo "$wifi"
+echo
 
 # WiFi or Ethernet
 ask_yes_no " Do you want to use WiFi?" wifi
-
-echo "$wifi"
 
 if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     execute_script "wifi_iwctl.sh"
 fi
 
+echo
+
 # Format and mount partitions
 execute_script "formatting_mounting.sh"
 
+echo
+
 # Check /mnt
 execute_script "check_mount.sh"
+
+echo
 
 # Install the base system
 ask_custom_option "Enter your CPU vendor (intel/amd):" "intel amd" cpu_vendor

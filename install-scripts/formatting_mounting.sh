@@ -5,7 +5,7 @@ echo "${SKY_BLUE}Formatting and Mounting${RESET}"
 echo
 echo "${WARNING}ATTENTION: At this point, you should have the partitions and swap space ready.${RESET}"
 echo
-echo lsblk
+lsblk
 echo
 
 # what device for /
