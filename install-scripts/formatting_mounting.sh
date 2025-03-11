@@ -1,21 +1,20 @@
 source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
 
 echo
-echo "${SKY_BLUE}Formatting and Mounting${RESET}"
-echo
+echo "${ORANGE}Formatting and Mounting${RESET}"
 echo "${WARNING}ATTENTION: At this point, you should have the partitions and swap space ready.${RESET}"
 echo
 lsblk
 echo
 
-# what device for /
-custom_read "${CAT} ${SKY_BLUE}Please enter the device for your root (e.g. /dev/sda1): ${RESET}" root_device
 # what device for /boot
-custom_read "${CAT} ${SKY_BLUE}Please enter the device for your boot (e.g. /dev/sda2): ${RESET}" boot_device
+custom_read "Please enter the device for your boot (e.g. /dev/sda2): ${RESET}" boot_device
+# what device for /
+custom_read "Please enter the device for your root (e.g. /dev/sda1): ${RESET}" root_device
 # what device for /home
-custom_read "${CAT} ${SKY_BLUE}Please enter the device for your home (e.g. /dev/sda3 or none): ${RESET}" home_device
+custom_read "Please enter the device for your home (e.g. /dev/sda3 or none): ${RESET}" home_device
 # what device for swap
-custom_read "${CAT} ${SKY_BLUE}Please enter the device for your swap (e.g. /dev/sda4 or none): ${RESET}" swap_device
+custom_read "Please enter the device for your swap (e.g. /dev/sda4 or none): ${RESET}" swap_device
 
 get_format(){
     if [[ "$1" == "y" ]]; then
@@ -26,8 +25,8 @@ get_format(){
 }
 
 # HDD or solid state drive
-ask_yes_no  "Is your root partition on a HDD?" root_hdd
-ask_yes_no  "Is your home partition on a HDD?" home_hdd
+ask_yes_no " Is your root partition on a HDD?" root_hdd
+ask_yes_no " Is your home partition on a HDD?" home_hdd
 
 echo 
 

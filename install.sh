@@ -30,7 +30,7 @@ echo "${YELLOW}NOTE: You will be required to answer some questions during the in
 echo
 echo "${WARNING}ATTENTION: Before proceeding, make sure you have disks and partitions ready!${RESET}"
 echo
-custom_read "${CAT} ${SKY_BLUE}Would you like to proceed? (y/n): ${RESET}" proceed
+read -p "${CAT} ${SKY_BLUE}Would you like to proceed? (y/n): ${RESET}" proceed
 
 if [ "$proceed" != "y" ]; then
     printf "\n%.0s" {1..2}
@@ -43,11 +43,11 @@ fi
 echo
 echo "${INFO} Detecting EFI mode..."
 command ls /sys/firmware/efi/efivars
-echo "${OK}EFI mode detected.${RESET}"
+echo "${OK} EFI mode detected.${RESET}"
 echo
 
 # Timezone
-custom_read "${CAT} ${SKY_BLUE}Please enter your timezone (ex. Europe/Madrid): ${RESET}" timezone
+custom_read "Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
 echo "${INFO} Setting timezone...${RESET}"
 command timedatectl set-timezone "$timezone"
 command timedatectl set-ntp true
