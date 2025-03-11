@@ -1,11 +1,11 @@
 source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
 
 echo
-echo "${ORANGE}Formatting and Mounting${RESET}"
+echo "${MAGENTA}Formatting and Mounting${RESET}"
 echo "${WARNING}ATTENTION: At this point, you should have the partitions and swap space ready.${RESET}"
 echo
 lsblk
-echo "$root_device"
+echo
 
 # what device for /
 custom_read " Please enter the device for your root (e.g. /dev/sda1)${RESET}" root_device
@@ -30,32 +30,48 @@ ask_yes_no " Is your home partition on a HDD?" home_hdd
 
 echo 
 
-echo "${INFO} mkfs.$(get_format $root_hdd) $root_device on /mnt"
-read -p "Press enter to continue"
+confirm_format_and_mount(){
+    if [ "$format_and_mount_ask" == "y" ] || [ "$format_and_mount_ask" == "Y" ]; then
+        echo "${INFO} $1 on $2"
+        read -p "Press enter to continue"
+    fi
+}
 
 # Format the root partition
-echo "${INFO} Formatting and mounting the root partition..."
-command mkfs.$(get_format "$root_hdd") "$root_device"
-command mount "$root_device" /mnt
+device="$root_device"
+next_command="mkfs.$(get_format $root_hdd) $device"
+location="/mnt"
+confirm_format_and_mount "$next_command" "$location"
 
-echo "${INFO} mkfs.fat -F 32  $boot_device on /mnt/boot"
+echo "${INFO} Formatting and mounting the root partition..."
+command "$next_command" "$root_device"
+command mount "$root_device" "$location"
+
+echo "${INFO} $next_command on /mnt/boot"
 read -p "Press enter to continue"
 
 # Format the boot partition
+device="$boot_device"
+next_command="mkfs.fat -F 32 $device"
+location="/mnt/boot"
+confirm_format_and_mount "$next_command" "$location"
+
 echo "${INFO} Formatting and mounting the boot partition..."
-command mkfs.fat -F 32 "$boot_device"
-command mkdir /mnt/boot
-command mount "$boot_device" /mnt/boot
+command mkdir "$location"
+command mkfs.fat -F 32 "$device"
+command mount "$device" "$location"
 
 # Format the home partition
 if [[ "$home_device" != "none" ]]; then
-    echo "${INFO} mkfs.$(get_format $home_hdd) $root_device on /mnt/home"
-    read -p "Press enter to continue"
+    device="$home_device"
+    next_command="mkfs.$(get_format $home_hdd) $device"
+    location="/mnt/home"
+    confirm_format_and_mount "$next_command" "$location"
 
     echo "${INFO} Formatting and mounting the home partition..."
-    command mkfs.$(get_format "$home_hdd") -f "$home_device"
-    command mkdir /mnt/home
-    command mount "$home_device" /mnt/home
+    command mkdir "$location"
+    command "$next_command"
+    command mount "$device" "$location"
 fi
 
 # Format the swap partition
