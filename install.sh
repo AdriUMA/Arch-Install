@@ -10,10 +10,10 @@ if [[ "$1" == "--preset" ]]; then
         exit 1
     fi
     
-    export use_preset=$(realpath "$2")
+    source "install-scripts/Global_functions.sh" $(realpath "$2")
+else 
+    source "install-scripts/Global_functions.sh"
 fi
-
-source "install-scripts/Global_functions.sh"
 
 printf "\n%.0s" {1..2}  
 echo -e "\e[35m\n

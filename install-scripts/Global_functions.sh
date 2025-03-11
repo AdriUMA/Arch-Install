@@ -28,8 +28,8 @@ script_directory=install-scripts
 echo "$use_preset"
 
 # Check if preset is provided
-if [ -z "$use_preset" ]; then
-    source $use_preset
+if [ -z "$1" ]; then
+    source $1
 fi
 
 custom_read(){
