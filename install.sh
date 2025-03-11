@@ -59,7 +59,7 @@ command timedatectl set-ntp true
 # WiFi or Ethernet
 ask_yes_no " Do you want to use WiFi?" wifi
 
-if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
+if [ "$wifi" == "y" ] || [ "$wifi" == "Y" ]; then
     execute_script "wifi_iwctl.sh"
 fi
 
