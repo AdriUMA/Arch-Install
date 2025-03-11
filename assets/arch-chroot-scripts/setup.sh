@@ -65,7 +65,10 @@ echo
 # Root password
 echo "${INFO} Setting root password...${RESET}"
 if [ -z "$root_pass" ]; then
-    while ! passwd; do
+    while true; do
+        if passwd; then
+            break  # Passwords match
+        fi
     done
 else
     command "echo root:$root_pass | chpasswd"
@@ -78,15 +81,13 @@ command "useradd -m $user_name"
 echo "${INFO} Setting user password...${RESET}"
 if [ -z "$user_pass" ]; then
     while true; do
-        custom_read " Enter user password: ${RESET}" user_pass
-        echo
-        custom_read " Re-enter user password: ${RESET}" user_pass2
-        echo
-        [ "$user_pass" = "$user_pass2" ] && break
-        echo "${ERROR} Passwords do not match. Please try again."
+        if passwd "$user_name"; then
+            break  # Passwords match
+        fi
     done
+else
+    command "echo $user_name:$user_pass | chpasswd"
 fi
-command "echo $user_name:$user_pass | chpasswd"
 
 # User groups and sudo
 echo "${INFO} Groups and sudo for $user_name...${RESET}"
