@@ -56,6 +56,8 @@ echo
 command timedatectl set-timezone "$timezone"
 command timedatectl set-ntp true
 
+echo "$wifi"
+
 # WiFi or Ethernet
 ask_yes_no " Do you want to use WiFi?" wifi
 
