@@ -16,7 +16,7 @@ fi
 mnt_device=$(findmnt -n -o SOURCE /mnt)
 root_device=$(findmnt -n -o SOURCE /)
 
-if [ "$mnt_device" == "$root_device" ]; then
+if [ "$mnt_device" = "$root_device" ]; then
     echo "${ERROR} /mnt is on the same device as root. Aborting..." | tee -a "$LOG_FILE"
     exit 1
 fi
