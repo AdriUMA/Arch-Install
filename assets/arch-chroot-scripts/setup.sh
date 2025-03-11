@@ -92,7 +92,7 @@ fi
 # User groups and sudo
 echo "${INFO} Groups and sudo for $user_name...${RESET}"
 command "usermod -aG wheel,video,audio,storage $user_name"
-command "sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers"
+command "sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers"
 
 # Configure wifi for next boot
 if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
