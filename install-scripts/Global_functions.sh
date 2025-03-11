@@ -25,6 +25,8 @@ LOG_FILE="install.log"
 # Define the directory where your scripts are located
 script_directory=install-scripts
 
+echo "$use_preset"
+
 # Check if preset is provided
 if [ -z "$use_preset" ]; then
     source $use_preset
