@@ -1,5 +1,6 @@
 # If preset.sh is provided, define it (this is for Global_functions.sh):
-if [ -f "preset.sh" ]; then
+preset_location="$(dirname $(readlink -f $0))/preset.sh"
+if [ -f "$preset_location" ]; then
     use_preset="$(realpath preset.sh)"
 fi
 
