@@ -20,7 +20,7 @@ SKY_BLUE="$(tput setaf 6)"
 RESET="$(tput sgr0)"
 
 # Log file variable
-LOG_FILE="install.log"
+LOG_FILE="log"
 
 # Define the directory where your scripts are located
 script_directory=install-scripts

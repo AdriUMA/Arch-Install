@@ -14,7 +14,7 @@ command "hwclock --systohc"
 # Set the locale
 echo
 another_locale="Y"
-while [ "$another_locale" == "Y" ]; do
+while true; do
     unset another_locale
 
     custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF8, es_ES.UTF-8 UTF8)${RESET}" locale
@@ -26,12 +26,22 @@ while [ "$another_locale" == "Y" ]; do
     fi
 
     ask_yes_no " Do you want to add another locale?" another_locale
+
+    if [ "$another_locale" != "y" ] && [ "$another_locale" != "Y" ]; then
+        break
+    fi
+
     unset locale
 done
 
 echo
 echo "${INFO} Generating locales...${RESET}"
 command "locale-gen"
+
+#press enter to continue
+echo
+echo "${INFO} Press enter to continue...${RESET}"
+read
 
 # Keyboard layout
 echo
