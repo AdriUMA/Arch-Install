@@ -80,7 +80,7 @@ command usermod -aG wheel,video,audio,storage "$user_name"
 command sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
 # Configure wifi for next boot
-if [ "$wifi" == "y" ] || [ "$wifi" == "Y" ]; then
+if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     echo "${INFO} Configuring wifi for next boot...${RESET}"
     command nmcli dev wifi connect "$wifi_ssid" name "$wifi_ssid" password "$wifi_password" hidden yes
 fi
