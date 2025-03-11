@@ -20,6 +20,9 @@ swap_device= # "none" if you don't want a swap partition
 root_hdd=
 home_hdd=
 
+# CPU vendor (intel/amd)
+cpu_vendor=
+
 # Locale
 locale="en_US.UTF-8 UTF-8\nes_ES.UTF-8 UTF-8"
 keyboard_layout="es"

@@ -128,6 +128,19 @@ command() {
     fi
 }
 
+command_verbose(){
+  local cmd="$1"
+
+  echo "${INFO} Running verbose: $cmd" | tee -a "$LOG_FILE"
+
+  if eval "$cmd"; then 
+      echo "${OK} Success." | tee -a "$LOG_FILE"
+  else
+      echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
+      exit 1
+  fi
+}
+
 # Show progress function
 show_progress() {
     local pid=$1
