@@ -12,7 +12,7 @@ if [[ "$1" == "--preset" ]]; then
         exit 1
     fi
     
-    use_preset = "$2"
+    use_preset="$2"
     source "$2"
 fi
 
