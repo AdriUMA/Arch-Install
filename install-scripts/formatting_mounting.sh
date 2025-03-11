@@ -43,7 +43,7 @@ confirm_format_and_mount(){
     echo "${INFO} Formatting and mounting the partition..."
     mkdir -p "$location"
     command "$formatting_command" "$device"
-    command mount "$device" "$location"
+    command "mount $device $location"
 }
 
 # Format the root partition
