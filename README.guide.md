@@ -69,7 +69,7 @@ Run the program to create partitions
 > If the option to select a label appears: `gpt` for EFI and `dos` for BIOS.
 
 ```sh
-cfdisk sdX
+cfdisk /dev/sdX
 ```
 
 Create partitions for the operating system or root `/`, for users `/home`, and for swap memory `swap`.
@@ -332,6 +332,8 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ❗If the output does not show something like `Found Windows Boot Manager on /dev/...`, this step has failed.
+
+## Troubleshooting
 
 ## ⚠️ If everything went well but GRUB does not appear in the BIOS boot menu ⚠️
 

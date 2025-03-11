@@ -2,15 +2,15 @@
 
 ## 🤖 Operating System Installation
 
-> [!IMPORTANT]
-> I recommend using the [official installation guide](https://wiki.archlinux.org/title/Installation_guide). This is a simplified summary adapted to my needs. It may not take into account hardware different from the one I have on my devices.
-
 > [!WARNING]
 > If for any reason SecureBoot needs to be enabled after installing Arch, I recommend deleting all BIOS keys before starting.
 
 > [!CAUTION]
+> Only UEFI support (keep reading if you dont know what system is yours).
 > Install Windows before Arch for dual boot.
 > Dual boot installation will fail if you have Windows 11 with BitLocker enabled.
+
+Do you want to do the installation on your own? Follow the [official guide](https://wiki.archlinux.org/title/Installation_guide) or [my guide](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md).
 
 ### Preparation
 
@@ -27,13 +27,16 @@ loadkeys es
 
 ### 🦿 Partitions and Formats
 
+> [!NOTE]
+> For any doubt, see [official guide](https://wiki.archlinux.org/title/Installation_guide).
+
 We will check if the hardware's boot mode is EFI or BIOS for the installation of the operating system.
 
 ```sh
 ls /sys/firmware/efi/efivars
 ```
 
-If there is no error running this command, it means it's an EFI boot. Otherwise, it is likely an older machine with BIOS boot.
+If there is no error running this command, it means it's an EFI boot. Otherwise do not use my script, it is likely an older machine with BIOS boot [manual install](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md#-partitions-and-formats).
 
 Check the available drives and the installation target.
 
@@ -46,7 +49,7 @@ Run the program to create partitions
 > If the option to select a label appears: `gpt` for EFI.
 
 ```sh
-cfdisk sdX
+cfdisk /dev/sdX
 ```
 
 Create partitions for the operating system or root `/`, for users `/home`, and for swap memory `swap`.
@@ -73,75 +76,4 @@ chmod +x install.sh
 
 ## ⚠️ If everything went well but GRUB does not appear in the BIOS boot menu ⚠️
 
-### 1️⃣ First: **Clean `/boot` and mount**
-
-🅰️ **IF YOU HAVE `/boot` ON A SEPARATE PARTITION**  
-
-For example, if you have:
-
-- `/` on /dev/sda1  
-- `/home` on /dev/sda2  
-- swap on /dev/sda3  
-- `/boot` on /dev/sda4  
-
-Mount the partitions except for `boot`:
-
-```sh
-mount /dev/sda1 /mnt
-mount /dev/sda2 /mnt/home
-swapon /dev/sda3
-```
-
-Format `/boot`, mount it, and regenerate fstab:
-
-```sh
-mkfs.fat -F 32 /dev/sda4
-mount /dev/sda4 /mnt/boot
-genfstab -U > /mnt/etc/fstab
-```
-
-🅱️ **IF YOU DON'T HAVE `/boot` ON A SEPARATE PARTITION**  
-
-For example, if you have:
-
-- `/` on /dev/sda1  
-- swap on /dev/sda3  
-
-```sh
-mount /dev/sda1 /mnt
-swapon /dev/sda3
-```
-
-Then, remove the contents of `/boot`:
-
-```sh
-rm -rf /mnt/boot/*
-```
-
-### 2️⃣ Second: Regenerate files in `/boot` and install GRUB  
-
-Enter the system and reinstall `linux` to regenerate files in `/boot`:
-
-```sh
-arch-root /mnt
-pacman -Syy
-pacman -S linux
-mkinitcpio -P
-```
-
-Install GRUB with an additional flag:
-
-> If you want to detect other operating systems: install `os-prober` and uncomment the line in `/etc/default/grub` at the end of the document so that it looks like this:  
-> `GRUB_DISABLE_OS_PROBER=false`
-
-```sh
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --removable
-grub-mkconfig -o /boot/grub/grub.cfg
-```
-
-### 3️⃣ Third: Restart  
-
-```sh
-umount -R /mnt
-shutdown now
-```
+Go to [guide troubleshooting](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md#troubleshooting)
