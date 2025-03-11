@@ -7,9 +7,9 @@ echo
 echo iwctl device list
 echo
 
-read -p "${CAT} ${SKY_BLUE}Please enter the name of your WiFi device: ${RESET}" wifi_device
-read -p "${CAT} ${SKY_BLUE}Please enter the name of your WiFi network: ${RESET}" wifi_ssid
-read -p "${CAT} ${SKY_BLUE}Please enter the password for your WiFi network: ${RESET}" wifi_password
+custom_read "${CAT} ${SKY_BLUE}Please enter the name of your WiFi device: ${RESET}" wifi_device
+custom_read "${CAT} ${SKY_BLUE}Please enter the name of your WiFi network: ${RESET}" wifi_ssid
+custom_read "${CAT} ${SKY_BLUE}Please enter the password for your WiFi network: ${RESET}" wifi_password
 
 echo
 echo "${INFO} Connecting to WiFi network...${RESET}"

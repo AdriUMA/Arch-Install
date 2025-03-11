@@ -9,13 +9,13 @@ lsblk
 echo
 
 # what device for /
-read -p "${CAT} ${SKY_BLUE}Please enter the device for your root (e.g. /dev/sda1): ${RESET}" root_device
+custom_read "${CAT} ${SKY_BLUE}Please enter the device for your root (e.g. /dev/sda1): ${RESET}" root_device
 # what device for /boot
-read -p "${CAT} ${SKY_BLUE}Please enter the device for your boot (e.g. /dev/sda2): ${RESET}" boot_device
+custom_read "${CAT} ${SKY_BLUE}Please enter the device for your boot (e.g. /dev/sda2): ${RESET}" boot_device
 # what device for /home
-read -p "${CAT} ${SKY_BLUE}Please enter the device for your home (e.g. /dev/sda3 or none): ${RESET}" home_device
+custom_read "${CAT} ${SKY_BLUE}Please enter the device for your home (e.g. /dev/sda3 or none): ${RESET}" home_device
 # what device for swap
-read -p "${CAT} ${SKY_BLUE}Please enter the device for your swap (e.g. /dev/sda4 or none): ${RESET}" swap_device
+custom_read "${CAT} ${SKY_BLUE}Please enter the device for your swap (e.g. /dev/sda4 or none): ${RESET}" swap_device
 
 get_format(){
     if [[ "$1" == "y" ]]; then
