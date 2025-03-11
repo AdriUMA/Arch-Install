@@ -35,6 +35,8 @@ echo "${INFO} Formatting and mounting the root partition..."
 command mkfs.$(get_format "$root_hdd") "$root_device" -f
 command mount "$root_device" /mnt
 
+read -p "Press enter to continue"
+
 # Format the boot partition
 echo "${INFO} Formatting and mounting the boot partition..."
 command mkfs.fat -F 32 "$boot_device"
