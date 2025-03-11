@@ -11,16 +11,9 @@ if [[ "$1" == "--preset" ]]; then
     fi
     
     use_preset="$(realpath $2)"
-    echo "${INFO} Using preset file: $use_preset"
-    source "install-scripts/Global_functions.sh" "$use_preset"
-else 
-    echo "${INFO} No preset file provided. Running the script without preset."
-    source "install-scripts/Global_functions.sh"
 fi
 
-
-echo "$timezone"
-
+source "install-scripts/Global_functions.sh"
 
 printf "\n%.0s" {1..2}  
 echo -e "\e[35m\n

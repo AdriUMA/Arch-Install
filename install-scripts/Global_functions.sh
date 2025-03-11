@@ -25,14 +25,10 @@ LOG_FILE="install.log"
 # Define the directory where your scripts are located
 script_directory=install-scripts
 
-echo "$use_preset"
-
 # Check if preset is provided
-if [ ! -z "$1" ]; then
-    source $1
+if [ ! -z "$use_preset" ]; then
+    source "$use_preset"
 fi
-
-echo "$timezone"
 
 custom_read(){
   if [[ ! -z "${!2}" ]]; then
