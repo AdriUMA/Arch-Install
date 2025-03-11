@@ -68,11 +68,13 @@ fi
 
 # Format the swap partition
 if [[ "$swap_device" != "none" ]]; then
-    echo "${INFO} mkswap and swapon $swap_device"
-    read -p "Press enter to continue"
+    if [ "$format_and_mount_ask" == "y" ] || [ "$format_and_mount_ask" == "Y" ]; then
+        echo "${INFO} mkswap and swapon $swap_device"
+        read -p "Press enter to continue"
+    fi
 
-    echo "${INFO} Formatting the swap partition..."
-    command mkswap -f "$swap_device"
+    echo "${INFO} Making swap..."
+    command mkswap "$swap_device"
     sleep 1
     command swapon "$swap_device"
 fi
