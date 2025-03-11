@@ -75,13 +75,19 @@ execute_script "check_mount.sh"
 echo
 
 # Install the base system
-ask_custom_option " Enter your CPU vendor" "intel amd" cpu_vendor
+ask_custom_option " Enter your CPU vendor" "intel amd none" cpu_vendor
 
 echo
 echo "${INFO} Installing the base system...${RESET}"
 echo "${INFO}This may take a while, please be patient...${RESET}"
 
-command_verbose "pacstrap /mnt base linux linux-firmware git sudo networkmanager" # $cpu_vendor-ucode
+cpu_vendor_ucode=""
+if [ "$cpu_vendor" = "intel" ]; then
+    cpu_vendor_ucode="intel-ucode"
+elif [ "$cpu_vendor" = "amd" ]; then
+    cpu_vendor_ucode="amd-ucode"
+fi
+command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $cpu_vendor_ucode" 
 
 # Generate fstab
 echo

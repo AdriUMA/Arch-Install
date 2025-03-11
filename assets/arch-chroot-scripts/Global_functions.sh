@@ -20,7 +20,7 @@ SKY_BLUE="$(tput setaf 6)"
 RESET="$(tput sgr0)"
 
 # Log file variable
-LOG_FILE="install.log"
+LOG_FILE="log"
 
 # Define the directory where your scripts are located
 script_directory=install-scripts
@@ -138,48 +138,5 @@ command_verbose(){
   else
       echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
       exit 1
-  fi
-}
-
-# Show progress function
-show_progress() {
-    local pid=$1
-    local package_name=$2
-    local spin_chars=("●○○○○○○○○○" "○●○○○○○○○○" "○○●○○○○○○○" "○○○●○○○○○○" "○○○○●○○○○" \
-                      "○○○○○●○○○○" "○○○○○○●○○○" "○○○○○○○●○○" "○○○○○○○○●○" "○○○○○○○○○●") 
-    local i=0
-
-    tput civis 
-    printf "\r${NOTE} Installing ${YELLOW}%s${RESET} ..." "$package_name"
-
-    while ps -p $pid &> /dev/null; do
-        printf "\r${NOTE} Installing ${YELLOW}%s${RESET} %s" "$package_name" "${spin_chars[i]}"
-        i=$(( (i + 1) % 10 ))  
-        sleep 0.3  
-    done
-
-    printf "\r${NOTE} Installing ${YELLOW}%s${RESET} ... Done!%-20s \n" "$package_name" ""
-    tput cnorm  
-}
-
-# Function to install packages with pacman
-install_package() {
-  # Check if package is already installed
-  if pacman -Q "$1" &>/dev/null ; then
-    echo -e "${INFO} ${MAGENTA}$1${RESET} is already installed. Skipping..."
-  else
-    # Run pacman and redirect all output to a log file
-    (
-      stdbuf -oL sudo pacman -S --noconfirm "$1" 2>&1
-    ) >> "$LOG" 2>&1 &
-    PID=$!
-    show_progress $PID "$1" 
-
-    # Double check if package is installed
-    if pacman -Q "$1" &>/dev/null ; then
-      echo -e "${OK} Package ${YELLOW}$1${RESET} has been successfully installed!"
-    else
-      echo -e "\n${ERROR} ${YELLOW}$1${RESET} failed to install. Please check the $LOG. You may need to install manually."
-    fi
   fi
 }
