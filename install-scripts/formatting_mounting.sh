@@ -31,47 +31,39 @@ ask_yes_no " Is your home partition on a HDD?" home_hdd
 echo 
 
 confirm_format_and_mount(){
+    local formatting_command="$1"
+    local device="$2"
+    local location="$3"
+
     if [ "$format_and_mount_ask" == "y" ] || [ "$format_and_mount_ask" == "Y" ]; then
-        echo "${INFO} $1 on $2"
+        echo "${INFO} $location: $formatting_command $device"
         read -p "Press enter to continue"
     fi
+
+    echo "${INFO} Formatting and mounting the partition..."
+    command mkdir -p "$location"
+    command "$formatting_command" "$device"
+    command mount "$device" "$location"
 }
 
 # Format the root partition
 device="$root_device"
-next_command="mkfs.$(get_format $root_hdd) $device"
+formatting_command="mkfs.$(get_format $root_hdd) $device"
 location="/mnt"
-confirm_format_and_mount "$next_command" "$location"
-
-echo "${INFO} Formatting and mounting the root partition..."
-command "$next_command" "$root_device"
-command mount "$root_device" "$location"
-
-echo "${INFO} $next_command on /mnt/boot"
-read -p "Press enter to continue"
+confirm_format_and_mount "$formatting_command" "$device" "$location"
 
 # Format the boot partition
 device="$boot_device"
-next_command="mkfs.fat -F 32 $device"
+formatting_command="mkfs.fat -F 32 $device"
 location="/mnt/boot"
-confirm_format_and_mount "$next_command" "$location"
-
-echo "${INFO} Formatting and mounting the boot partition..."
-command mkdir "$location"
-command mkfs.fat -F 32 "$device"
-command mount "$device" "$location"
+confirm_format_and_mount "$formatting_command" "$device" "$location"
 
 # Format the home partition
 if [[ "$home_device" != "none" ]]; then
     device="$home_device"
-    next_command="mkfs.$(get_format $home_hdd) $device"
+    formatting_command="mkfs.$(get_format $home_hdd) $device"
     location="/mnt/home"
-    confirm_format_and_mount "$next_command" "$location"
-
-    echo "${INFO} Formatting and mounting the home partition..."
-    command mkdir "$location"
-    command "$next_command"
-    command mount "$device" "$location"
+    confirm_format_and_mount "$formatting_command" "$device" "$location"
 fi
 
 # Format the swap partition
