@@ -11,6 +11,7 @@ if [[ "$1" == "--preset" ]]; then
     fi
     
     use_preset=$(realpath "$2")
+    export use_preset
 fi
 
 source "install-scripts/Global_functions.sh"
