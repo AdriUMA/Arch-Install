@@ -103,12 +103,12 @@ command "chmod +x /mnt/root/arch-chroot-scripts/*"
 # Enter the new system
 echo
 echo ${INFO} Entering the new system...${RESET}
-command "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh"
+command_verbose "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh"
 
 # Remove the arch-chroot-scripts directory from the new system
 echo
 echo ${INFO} Removing arch-chroot-scripts directory from the new system...${RESET}
-command_verbose "rm -rf /mnt/root/arch-chroot-scripts"
+command "rm -rf /mnt/root/arch-chroot-scripts"
 
 echo
 echo ${GREEN} Install completed!${RESET}
