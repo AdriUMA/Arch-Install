@@ -2,8 +2,6 @@
 
 clear
 
-source "install-scripts/Global_functions.sh"
-
 # Check if --preset argument is provided
 if [[ "$1" == "--preset" ]]; then
 
@@ -12,9 +10,10 @@ if [[ "$1" == "--preset" ]]; then
         exit 1
     fi
     
-    use_preset="$2"
-    source "$2"
+    use_preset=$(realpath "$2")
 fi
+
+source "install-scripts/Global_functions.sh"
 
 printf "\n%.0s" {1..2}  
 echo -e "\e[35m\n

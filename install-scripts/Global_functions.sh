@@ -25,6 +25,11 @@ LOG_FILE="install.log"
 # Define the directory where your scripts are located
 script_directory=install-scripts
 
+# Check if preset is provided
+if [ -z "$use_preset" ]; then
+    source $use_preset
+fi
+
 custom_read(){
   if [[ ! -z "${!2}" ]]; then
     echo "$(colorize_prompt "$CAT"  "$1 (Preset): ${!2}")" 
