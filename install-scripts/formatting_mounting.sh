@@ -1,4 +1,3 @@
-echo
 echo "${MAGENTA}Formatting and Mounting${RESET}"
 echo "${WARNING}ATTENTION: At this point, you should have the partitions and swap space ready.${RESET}"
 echo
