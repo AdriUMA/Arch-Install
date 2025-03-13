@@ -8,7 +8,7 @@ echo "${INFO} Checking internet connection..." | tee -a "$LOG_FILE"
 
 attempt=1
 while ! ping -c 1 -W 3 archlinux.org &> /dev/null; do
-    echo "${ERROR} No internet connection detected. Attempt $attempt/$MAX_ATTEMPTS..." | tee -a "$LOG_FILE"
+    echo "${WARN} No internet connection detected. Attempt $attempt/$MAX_ATTEMPTS..." | tee -a "$LOG_FILE"
 
     if [ "$attempt" -ge "$MAX_ATTEMPTS" ]; then
         echo "${ERROR} No internet after $MAX_ATTEMPTS attempts. Aborting..." | tee -a "$LOG_FILE"
