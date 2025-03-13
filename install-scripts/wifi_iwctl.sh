@@ -14,10 +14,14 @@ echo
 
 # Reset iwctl (avoid errors)
 echo "${INFO} Reseting iwctl...${RESET}"
-command iwctl station "$wifi_device" disconnect
-command iwctl device "$wifi_device" set-property Powered on
-command iwctl known-networks "\"$wifi_ssid\"" forget
+iwctl station "$wifi_device" disconnect > /dev/null 2>&1
+sleep 0.1
+iwctl device "$wifi_device" set-property Powered on > /dev/null 2>&1
+sleep 0.1
+iwctl known-networks "\"$wifi_ssid\"" forget > /dev/null 2>&1
+sleep 0.1
 
 # Connect
 echo "${INFO} Connecting to WiFi network...${RESET}"
 command "iwctl station $wifi_device connect-hidden \"$wifi_ssid\" --passphrase \"$wifi_password\""
+sleep 0.5
