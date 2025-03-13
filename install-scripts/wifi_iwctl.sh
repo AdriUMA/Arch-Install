@@ -1,4 +1,5 @@
 # Unblocking WiFi
+echo
 command rfkill unblock all
 
 echo
