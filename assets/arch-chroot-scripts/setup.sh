@@ -59,7 +59,7 @@ echo "::1           localhost" >> /etc/hosts
 echo "127.0.1.1     $hostname.localhost        $hostname" >> /etc/hosts
 
 echo "${INFO} Enabling NetworkManager...${RESET}"
-command "systemctl enable NetworkManager"
+command "systemctl enable --now NetworkManager"
 echo
 
 # Root password
