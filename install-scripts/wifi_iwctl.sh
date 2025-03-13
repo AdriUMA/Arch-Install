@@ -15,7 +15,7 @@ echo
 # Reset iwctl (avoid errors)
 echo "${INFO} Reseting iwctl...${RESET}"
 iwctl station disconnect
-iwctl device "\"$wifi_device\"" set-property Powered on
+iwctl device "$wifi_device" set-property Powered on
 iwctl station disconnect
 iwctl known-networks "\"$wifi_ssid\"" forget
 
