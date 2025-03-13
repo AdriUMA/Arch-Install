@@ -20,10 +20,10 @@ iwctl device "$wifi_device" set-property Powered off #> /dev/null 2>&1
 sleep 0.25
 iwctl device "$wifi_device" set-property Powered on #> /dev/null 2>&1
 sleep 0.5
-iwctl known-networks \""$wifi_ssid"\" forget #> /dev/null 2>&1
+iwctl known-networks "$wifi_ssid" forget #> /dev/null 2>&1
 sleep 1
 
 # Connect
 echo "${INFO} Connecting to WiFi network...${RESET}"
-command "iwctl station $wifi_device connect-hidden \"$wifi_ssid\" --passphrase \"$wifi_password\""
+command "iwctl station $wifi_device connect-hidden $wifi_ssid --passphrase $wifi_password"
 sleep 0.5
