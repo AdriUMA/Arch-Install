@@ -121,8 +121,7 @@ echo ${GREEN} Install completed!${RESET}
 echo
 
 # Finish
-echo
-ask_yes_no "Do you want to reboot now?" reboot
+ask_yes_no " Do you want to reboot now?" reboot
 
 if [ "$reboot" = "y" ] || [ "$reboot" = "Y" ]; then
     echo
