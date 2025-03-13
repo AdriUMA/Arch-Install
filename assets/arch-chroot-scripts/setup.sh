@@ -101,6 +101,7 @@ if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     touch /home/$user_name/wifi-setup.sh
     echo "#!/bin/bash" >> /home/$user_name/wifi-setup.sh
     echo "echo \"$(tput setaf 4)[INFO]$(tput sgr0) Setting up wifi...\"" >> /home/$user_name/wifi-setup.sh
+    echo "sleep 3" >> /home/$user_name/wifi-setup.sh
     echo "nmcli device wifi connect $wifi_ssid password $wifi_password hidden yes" >> /home/$user_name/wifi-setup.sh
     echo "echo \"$(tput setaf 4)[INFO]$(tput sgr0) Wifi setup complete.\"" >> /home/$user_name/wifi-setup.sh
     echo "echo \"$(tput setaf 4)[INFO]$(tput sgr0) Removing wifi-setup.sh. Now you can remove the wifi startup script from .bashrc.\"" >> /home/$user_name/wifi-setup.sh
@@ -113,7 +114,7 @@ if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     echo "# Run wifi-setup.sh if it exists. This script will delete itself after running." >> /home/$user_name/.bashrc
     echo "# Remove this after first login." >> /home/$user_name/.bashrc
     echo "if [ -f /home/$user_name/wifi-setup.sh ]; then" >> /home/$user_name/.bashrc
-    echo "    ./home/$user_name/wifi-setup.sh" >> /home/$user_name/.bashrc
+    echo "    /home/$user_name/wifi-setup.sh" >> /home/$user_name/.bashrc
     echo "fi" >> /home/$user_name/.bashrc
 fi
 
