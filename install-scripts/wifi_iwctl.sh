@@ -13,4 +13,6 @@ echo
 echo "${INFO} Connecting to WiFi network...${RESET}"
 echo
 
-command "iwctl station $wifi_device connect-hidden $wifi_ssid --passphrase $wifi_password"
+iwctl device "\"$wifi_device\"" set-property Powered on
+iwctl station disconnect
+command "iwctl station $wifi_device connect-hidden \"$wifi_ssid\" --passphrase \"$wifi_password\""
