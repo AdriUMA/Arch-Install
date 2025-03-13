@@ -1,8 +1,5 @@
 # If preset.sh is provided, define it (this is for Global_functions.sh):
-preset_location_old="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 preset_location="$(dirname $(readlink -f $0))/preset.sh"
-echo "$preset_location_old"
-echo "ESTE: $preset_location"
 
 if [ -f "$preset_location" ]; then
     use_preset="$preset_location"
@@ -98,7 +95,9 @@ command "sed -i 's/^#\s*\(%wheel ALL=(ALL:ALL ALL\)/\1/' /etc/sudoers"
 if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     echo "${INFO} Configuring Easy Wifi script for next boot...${RESET}"
 
-    command "cp wifi_setup.sh /home/$user_name/wifi_setup.sh"
+    wifi_script_location="$(dirname $(readlink -f $0))/wifi_setup.sh"
+
+    command "cp $wifi_script_location /home/$user_name/wifi_setup.sh"
     command "chmod +x /home/$user_name/wifi_setup.sh"
 
     echo "" >> /home/$user_name/.bashrc
