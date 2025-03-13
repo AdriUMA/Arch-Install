@@ -97,7 +97,7 @@ command "sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/s
 # Configure wifi for next boot
 if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
     echo "${INFO} Configuring wifi for next boot...${RESET}"
-    command "nmcli dev wifi connect $wifi_ssid name $wifi_ssid password $wifi_password hidden yes"
+    command "nmcli device wifi connect $wifi_ssid password $wifi_password hidden yes"
 fi
 
 # GRUB
