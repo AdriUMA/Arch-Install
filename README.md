@@ -84,9 +84,10 @@ Partition for **EFI**
 
 ### 💾 Run script
 
-Download (if needed)
+Download git and repo (if needed)
 
 ```sh
+pacman -S git
 git clone https://github.com/AdriUMA/Arch-Install.git
 ```
 
