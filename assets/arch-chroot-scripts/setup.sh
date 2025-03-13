@@ -96,7 +96,7 @@ command "sed -i 's/^#\s*\(%wheel ALL=(ALL:ALL ALL\)/\1/' /etc/sudoers"
 
 # Configure wifi for next boot
 if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
-    echo "${INFO} Configuring wifi for next boot...${RESET}"
+    echo "${INFO} Configuring Easy Wifi script for next boot...${RESET}"
 
     command "cp wifi_setup.sh /home/$user_name/wifi_setup.sh"
     command "chmod +x /home/$user_name/wifi_setup.sh"
