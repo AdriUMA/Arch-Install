@@ -1,6 +1,4 @@
-# Arch Linux
-
-## 🤖 Operating System Installation
+# 🤖 Arch Linux Installation Script
 
 > [!NOTE]
 > Do you want to do the installation on your own? Follow the [official guide](https://wiki.archlinux.org/title/Installation_guide) or [my guide](https://github.com/AdriUMA/Arch-Install/blob/main/README.guide.md).
@@ -16,12 +14,30 @@
 [Download ISO](https://archlinux.org/download/) of Arch Linux and [flash](https://www.balena.io/etcher) an external drive.
 Connect the device via Ethernet and boot the live system from the bootable drive.
 
-### ⌨️ Installation
+## ⌨️ Installation
 
 (Optional) Configure the keyboard layout.
 
 ```sh
 loadkeys es
+```
+
+### 🛜 Wifi
+
+> [!NOTE]
+> Skip this step if you are using ethernet or if you already have this repo in local
+
+```sh
+rfkill unblock all
+iwctl device list
+iwctl device DEVICE-NAME set-property Powered on
+iwctl station DEVICE-NAME connect-hidden "WIFI_SSID" --passphrase "WIFI_PASS"
+```
+
+We check if we have an internet connection.
+
+```sh
+ping archlinux.org
 ```
 
 ### 🦿 Partitions and Formats
@@ -56,7 +72,8 @@ Create partitions for the operating system or root `/`, for users `/home`, and f
 
 Partition for **EFI**
 
-> [!IMPORTANT] If you have another Linux installed, you have multiple options if you want to keep it. However, for the sake of simplicity, this guide does not consider that case.
+> [!IMPORTANT]
+> If you have another Linux installed, you have multiple options if you want to keep it. However, for the sake of simplicity, this guide does not consider that case.
 
 | Path     | Type             | Suggested Size |
 | -------- | ---------------- | -------------- |
@@ -65,13 +82,28 @@ Partition for **EFI**
 | `/home`  | Linux filesystem | 50GB           |
 | `[SWAP]` | Linux swap       | 8GB            |
 
-Run installer
+### 💾 Run script
+
+Download (if needed)
 
 ```sh
 git clone https://github.com/AdriUMA/Arch-Install.git
+```
+
+Run without preset (interactive install)
+
+```sh
 cd Arch-Install
 chmod +x install.sh
 ./install.sh
+```
+
+Run with preset (auto-install)
+
+```sh
+cd Arch-Install
+chmod +x install.sh
+./install.sh --preset presets/your_preset.sh
 ```
 
 ## Misc
