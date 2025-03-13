@@ -11,14 +11,14 @@ custom_read " Please enter the name (SSID) of your WiFi network${RESET}" wifi_ss
 custom_read " Please enter the password for your WiFi network${RESET}" wifi_password
 
 echo
-echo "${INFO} Connecting to WiFi network...${RESET}"
-echo
 
 # Reset iwctl (avoid errors)
-iwctl station disconnect 2>&1 /dev/null
-iwctl device "\"$wifi_device\"" set-property Powered on 2>&1 /dev/null
-iwctl station disconnect 2>&1 /dev/null
+echo "${INFO} Reseting iwctl...${RESET}"
+iwctl station disconnect
+iwctl device "\"$wifi_device\"" set-property Powered on
+iwctl station disconnect
 iwctl known-networks "\"$wifi_ssid\"" forget
 
 # Connect
+echo "${INFO} Connecting to WiFi network...${RESET}"
 command "iwctl station $wifi_device connect-hidden \"$wifi_ssid\" --passphrase \"$wifi_password\""
