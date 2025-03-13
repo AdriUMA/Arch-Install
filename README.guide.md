@@ -1,6 +1,4 @@
-# Arch Linux
-
-## 🤖 Operating System Installation
+# 🤖 Arch Linux Installation Guide
 
 > [!IMPORTANT]
 > I recommend using the [official installation guide](https://wiki.archlinux.org/title/Installation_guide). This is a simplified summary adapted to my needs. It may not take into account hardware different from the one I have on my devices.
