@@ -14,7 +14,9 @@ format_and_mount_ask="y" # "y" to ask before formatting and mounting partitions,
 formatting_script="btrfs"
 # Devices (e.g. "/dev/sda1")
 root_device=
+boot_device= # e.g. "/dev/sda2"
 swap_device= # "none" if you don't want a swap partition
+boot_mnt_location= # e.g. "/boot" or "/boot/efi"
 boot_subvolume= # if you want a subvolume for /boot (y/n)
 home_subvolume= # if you want a subvolume for /home (y/n)
 var_subvolume= # if you want a subvolume for /var (y/n)

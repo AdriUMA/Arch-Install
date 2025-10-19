@@ -6,10 +6,11 @@ echo
 
 # what devices
 custom_read " Please enter the device for your btrfs partition (e.g. /dev/sda1)${RESET}" root_device
-custom_read " Please enter the device for your swap partition (e.g. /dev/sda2 or none)${RESET}" swap_device
+custom_read " Please enter the device for your swap partition (e.g. /dev/sda2)${RESET}" boot_device
+custom_read " Please enter the device for your swap partition (e.g. /dev/sda3 or none)${RESET}" swap_device
+custom_read " Please enter the EFI mount location (e.g. /boot or /boot/efi)${RESET}" boot_mnt_location
 
 # what subvolumes
-custom_read " Subvolume for your boot (y/n)?${RESET}" boot_subvolume
 custom_read " Subvolume for your home (y/n)?${RESET}" home_subvolume
 custom_read " Subvolume for your var (y/n)?${RESET}" var_subvolume
 custom_read " Subvolume for your opt (y/n)?${RESET}" opt_subvolume
@@ -35,7 +36,7 @@ confirm_format(){
     fi
 
     mkdir -p "$location"
-    command "$formatting_command $device"
+    command "$formatting_command"
 }
 
 subvolume_create(){
@@ -67,7 +68,6 @@ confirm_format "$formatting_command" "$device" "$location"
 # Mount the btrfs partition temporarily to create subvolumes
 command "mount $device $location"
 subvolume_create "@" "/mnt"
-[[ "$boot_subvolume" =~ ^[Yy]$ ]] && subvolume_create "@boot" "/mnt"
 [[ "$home_subvolume" =~ ^[Yy]$ ]] && subvolume_create "@home" "/mnt"
 [[ "$var_subvolume" =~ ^[Yy]$ ]] && subvolume_create "@var" "/mnt"
 [[ "$opt_subvolume" =~ ^[Yy]$ ]] && subvolume_create "@opt" "/mnt"
@@ -75,12 +75,17 @@ subvolume_create "@" "/mnt"
 
 # Unmount the btrfs partition and mount the subvolumes
 command "umount -Rf $location"
-subvolume_mount "@" "$location"
-[[ "$boot_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@boot" "/mnt/boot" "none"
+subvolume_mount "@" "$location" "zstd"
 [[ "$home_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@home" "/mnt/home" "zstd"
 [[ "$var_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@var" "/mnt/var" "zstd"
 [[ "$opt_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@opt" "/mnt/opt" "zstd"
 [[ "$srv_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@srv" "/mnt/srv" "zstd"
+
+# Format and mount de boot partition
+device="$boot_device"
+formatting_command="mkfs.fat -F32 $device"
+location="/mnt$boot_mnt_location"
+confirm_format "$formatting_command" "$device" "$location"
 
 # Format the swap partition
 if [[ "$swap_device" != "none" ]]; then
@@ -93,3 +98,6 @@ if [[ "$swap_device" != "none" ]]; then
     command "mkswap -f $swap_device"
     command swapon "$swap_device"
 fi
+
+echo "$boot_mnt_location" > /mnt/.efi_mount_location
+echo "${INFO} Formatting and mounting completed!${RESET}"

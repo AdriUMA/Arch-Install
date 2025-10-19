@@ -41,7 +41,7 @@ fi
 # Only for UEFI mode
 echo
 echo "${INFO} Detecting EFI mode..."
-command ls /sys/firmware/efi/efivars
+command "ls /sys/firmware/efi/efivars"
 echo "${OK} EFI mode detected.${RESET}"
 echo
 
@@ -67,6 +67,11 @@ echo
 # Format and mount partitions
 ask_custom_option " Please enter the formatting and mounting script you want to use" "ext4 btrfs" formatting_script
 execute_script "formatting_mounting_$formatting_script.sh"
+efi_directory="/boot"
+if [ -f /mnt/.efi_mount_location ]; then
+    efi_directory=$(cat /mnt/.efi_mount_location)
+    rm /mnt/.efi_mount_location
+fi
 
 echo
 
@@ -75,7 +80,7 @@ execute_script "check_mount.sh"
 
 echo
 
-# Install the base system
+# CPU vendor
 ask_custom_option " Enter your CPU vendor" "intel amd none" cpu_vendor
 
 echo
@@ -88,7 +93,30 @@ if [ "$cpu_vendor" = "intel" ]; then
 elif [ "$cpu_vendor" = "amd" ]; then
     cpu_vendor_ucode="amd-ucode"
 fi
-command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $cpu_vendor_ucode" 
+
+# GPU drivers
+ask_custom_option " Select your GPU vendor" "intel amd nvidia none" gpu_vendor
+
+gpu_packages=""
+if [ "$gpu_vendor" = "intel" ]; then
+    gpu_packages="mesa xf86-video-intel"
+elif [ "$gpu_vendor" = "amd" ]; then
+    gpu_packages="mesa xf86-video-amdgpu"
+elif [ "$gpu_vendor" = "nvidia" ]; then
+    echo "${INFO} Choose NVIDIA driver type:"
+    echo "1) Proprietary (nvidia, nvidia-utils, nvidia-settings)"
+    echo "2) Open Source (xf86-video-nouveau)"
+    echo "3) None"
+    read -p "${CAT} Enter choice [1-3]: " nvidia_choice
+    case "$nvidia_choice" in
+        1) gpu_packages="nvidia nvidia-utils nvidia-settings" ;;
+        2) gpu_packages="xf86-video-nouveau" ;;
+        *) gpu_packages="" ;;
+    esac
+fi
+
+# Install the base system
+command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $cpu_vendor_ucode $gpu_packages"
 
 # Generate fstab
 echo
@@ -110,7 +138,7 @@ command "chmod +x /mnt/root/arch-chroot-scripts/*"
 # Enter the new system
 echo
 echo ${INFO} Entering the new system...${RESET}
-command_verbose "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh"
+command_verbose "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh -- $efi_directory"
 
 # Remove the arch-chroot-scripts directory from the new system
 echo
