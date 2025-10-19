@@ -61,8 +61,8 @@ ask_yes_no() {
   while true; do
     read -p "$(colorize_prompt "$CAT"  "$1 (y/n): ")" choice
     case "$choice" in
-      [Yy]* ) eval "$2='Y'"; return 0;;
-      [Nn]* ) eval "$2='N'"; return 1;;
+      [Yy]* ) eval "$2='Y'"; return;;
+      [Nn]* ) eval "$2='N'"; return;;
       * ) echo "Please answer with y or n.";;
     esac
   done
@@ -101,7 +101,7 @@ execute_script() {
             echo "${INFO} Running script '$script'..."
             if ! source "$script_path"; then
                 echo "${ERROR} Failed to execute script '$script'. Aborting..."
-                exit 1
+                return 1
             fi
             echo "${OK} Script '$script' executed successfully."
         else
@@ -119,12 +119,12 @@ command() {
 
     echo "${INFO} Running: $cmd" | tee -a "$LOG_FILE"
     
-    if eval "$cmd" >> "$LOG_FILE" 2>&1; then
+    if eval "$cmd" > "$LOG_FILE" 2>&1; then
         echo "${OK} Success." | tee -a "$LOG_FILE"
     else
         echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
         cat "$LOG_FILE"
-        exit 1
+        return 1
     fi
 }
 
@@ -137,6 +137,6 @@ command_verbose(){
       echo "${OK} Success." | tee -a "$LOG_FILE"
   else
       echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
-      exit 1
+      return 1
   fi
 }
