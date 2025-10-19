@@ -18,7 +18,7 @@ command "hwclock --systohc"
 # Set the locale
 echo
 another_locale="Y"
-while true; do
+while [ "$another_locale" != "y" ] || [ "$another_locale" != "Y" ]; do
     unset another_locale
 
     custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF-8, es_ES.UTF-8 UTF-8)${RESET}" locale
@@ -30,11 +30,7 @@ while true; do
     fi
 
     ask_yes_no " Do you want to add another locale?" another_locale
-
-    if [ "$another_locale" != "y" ] && [ "$another_locale" != "Y" ]; then
-        break
-    fi
-
+    
     unset locale
 done
 
