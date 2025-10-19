@@ -6,8 +6,8 @@ echo
 
 # what devices
 custom_read " Please enter the device for your btrfs partition (e.g. /dev/sda1)${RESET}" root_device
-custom_read " Please enter the device for your swap partition (e.g. /dev/sda2)${RESET}" boot_device
-custom_read " Please enter the device for your swap partition (e.g. /dev/sda3 or none)${RESET}" swap_device
+custom_read " Please enter the device for your boot partition (e.g. /dev/sda2)${RESET}" boot_device
+custom_read " Please enter the device for your swap (e.g. /dev/sda3 or none)${RESET}" swap_device
 custom_read " Please enter the EFI mount location (e.g. /boot or /boot/efi)${RESET}" boot_mnt_location
 
 # what subvolumes

@@ -101,7 +101,7 @@ execute_script() {
             echo "${INFO} Running script '$script'..."
             if ! source "$script_path"; then
                 echo "${ERROR} Failed to execute script '$script'. Aborting..."
-                exit 1
+                return 1
             fi
             echo "${OK} Script '$script' executed successfully."
         else
@@ -124,7 +124,7 @@ command() {
     else
         echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
         cat "$LOG_FILE"
-        exit 1
+        return 1
     fi
 }
 
@@ -137,6 +137,6 @@ command_verbose(){
       echo "${OK} Success." | tee -a "$LOG_FILE"
   else
       echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"
-      exit 1
+      return 1
   fi
 }
