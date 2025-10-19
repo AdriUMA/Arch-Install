@@ -12,7 +12,7 @@ while true; do
     for host in "${PING_TARGETS[@]}"; do
         if ping -c 1 -W 3 "$host" &> /dev/null; then
             echo "${OK} Internet connection is active." | tee -a "$LOG_FILE"
-            exit 0
+            return 0
         fi
     done
 
@@ -20,7 +20,7 @@ while true; do
 
     if [ "$attempt" -ge "$MAX_ATTEMPTS" ]; then
         echo "${ERROR} No internet after $MAX_ATTEMPTS attempts. Aborting..." | tee -a "$LOG_FILE"
-        exit 1
+        return 1
     fi
 
     attempt=$((attempt + 1))
