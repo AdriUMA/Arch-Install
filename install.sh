@@ -65,7 +65,8 @@ execute_script "check_internet.sh"
 echo
 
 # Format and mount partitions
-execute_script "formatting_mounting.sh"
+ask_custom_option " Please enter the formatting and mounting script you want to use" "ext4 btrfs" formatting_script
+execute_script "formatting_mounting_$formatting_script.sh"
 
 echo
 

@@ -70,7 +70,7 @@ cfdisk /dev/sdX
 
 Create partitions for the operating system or root `/`, for users `/home`, and for swap memory `swap`.
 
-Partition for **EFI**
+Partition for **EFI** using **ext4**
 
 > [!IMPORTANT]
 > If you have another Linux installed, you have multiple options if you want to keep it. However, for the sake of simplicity, this guide does not consider that case.
@@ -80,6 +80,13 @@ Partition for **EFI**
 | `/`      | Linux filesystem | 50GB           |
 | `/boot`  | EFI System       | 1GB            |
 | `/home`  | Linux filesystem | 50GB           |
+| `[SWAP]` | Linux swap       | 8GB            |
+
+Partition for **EFI** using **btrfs**
+
+| Path     | Type             | Suggested Size |
+| -------- | ---------------- | -------------- |
+| `/`      | Linux filesystem | 100GB          |
 | `[SWAP]` | Linux swap       | 8GB            |
 
 ### 💾 Run script

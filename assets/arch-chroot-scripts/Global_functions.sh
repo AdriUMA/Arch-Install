@@ -119,7 +119,7 @@ command() {
 
     echo "${INFO} Running: $cmd" | tee -a "$LOG_FILE"
     
-    if eval "$cmd" > "$LOG_FILE" 2>&1; then
+    if eval "$cmd" >> "$LOG_FILE" 2>&1; then
         echo "${OK} Success." | tee -a "$LOG_FILE"
     else
         echo "${ERROR} Error. Aborting..." | tee -a "$LOG_FILE"

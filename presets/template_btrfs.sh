@@ -9,16 +9,17 @@ wifi_device=
 wifi_ssid=
 wifi_password=
 
-# Partitions location (I DO NOT RECOMMEND USING THIS PRESET) 
-format_and_mount_ask="y"
+# Partitions location
+format_and_mount_ask="y" # "y" to ask before formatting and mounting partitions, "n" to not ask
+formatting_script="btrfs"
 # Devices (e.g. "/dev/sda1")
 root_device=
-boot_device=
-home_device= # "none" if you don't want a separate home partition
 swap_device= # "none" if you don't want a swap partition
-# HDD or solid state drive ("y"/"n")
-root_hdd=
-home_hdd=
+boot_subvolume= # if you want a subvolume for /boot (y/n)
+home_subvolume= # if you want a subvolume for /home (y/n)
+var_subvolume= # if you want a subvolume for /var (y/n)
+opt_subvolume= # if you want a subvolume for /opt (y/n)
+srv_subvolume= # if you want a subvolume for /srv (y/n)
 
 # CPU vendor ("intel"/"amd"/"none")
 cpu_vendor=
