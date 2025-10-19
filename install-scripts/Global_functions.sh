@@ -62,7 +62,7 @@ ask_yes_no() {
     read -p "$(colorize_prompt "$CAT"  "$1 (y/n): ")" choice
     case "$choice" in
       [Yy]* ) eval "$2='Y'"; return 0;;
-      [Nn]* ) eval "$2='N'"; return 1;;
+      [Nn]* ) eval "$2='N'"; return 0;;
       * ) echo "Please answer with y or n.";;
     esac
   done
