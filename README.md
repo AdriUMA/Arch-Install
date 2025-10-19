@@ -25,7 +25,7 @@ loadkeys es
 ### 🛜 Wifi
 
 > [!NOTE]
-> Skip this step if you are using ethernet or if you already have this repo in local
+> Skip this step if you are using ethernet
 
 ```sh
 rfkill unblock all
@@ -34,7 +34,7 @@ iwctl device DEVICE-NAME set-property Powered on
 iwctl station DEVICE-NAME connect-hidden "WIFI_SSID" --passphrase "WIFI_PASS"
 ```
 
-We check if we have an internet connection.
+Check internet connection.
 
 ```sh
 ping archlinux.org
@@ -46,7 +46,7 @@ ping archlinux.org
 > This is the only manual step.
 > For any doubt, see [official guide](https://wiki.archlinux.org/title/Installation_guide).
 
-We will check if the hardware's boot mode is EFI or BIOS for the installation of the operating system.
+Check if the hardware's boot mode is EFI or BIOS for the installation of the operating system.
 
 ```sh
 ls /sys/firmware/efi/efivars
