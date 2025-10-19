@@ -6,8 +6,16 @@ DELAY=1
 
 echo "${INFO} Checking internet connection..." | tee -a "$LOG_FILE"
 
+PING_TARGETS=("archlinux.org" "google.com" "1.1.1.1")
 attempt=1
-while ! ping -c 1 -W 3 archlinux.org &> /dev/null; do
+while true; do
+    for host in "${PING_TARGETS[@]}"; do
+        if ping -c 1 -W 3 "$host" &> /dev/null; then
+            echo "${OK} Internet connection is active." | tee -a "$LOG_FILE"
+            exit 0
+        fi
+    done
+
     echo "${INFO} No internet connection detected. Attempt $attempt/$MAX_ATTEMPTS..." | tee -a "$LOG_FILE"
 
     if [ "$attempt" -ge "$MAX_ATTEMPTS" ]; then
@@ -18,5 +26,6 @@ while ! ping -c 1 -W 3 archlinux.org &> /dev/null; do
     attempt=$((attempt + 1))
     sleep "$DELAY"
 done
+
 
 echo "${OK} Internet connection is active." | tee -a "$LOG_FILE"
