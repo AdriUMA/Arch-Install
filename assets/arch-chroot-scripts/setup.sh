@@ -19,19 +19,17 @@ command "hwclock --systohc"
 echo
 another_locale="Y"
 while [ "$another_locale" != "y" ] || [ "$another_locale" != "Y" ]; do
-    unset another_locale
-
     custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF-8, es_ES.UTF-8 UTF-8)${RESET}" locale
     echo "$locale" >> /etc/locale.gen
+    unset locale
     
     # If we are running using preset, we don't want to ask for more locales
     if [ ! -z "$use_preset" ]; then
         break
     fi
 
+    unset another_locale
     ask_yes_no " Do you want to add another locale?" another_locale
-    
-    unset locale
 done
 
 echo
