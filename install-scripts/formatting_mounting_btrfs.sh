@@ -15,7 +15,13 @@ custom_read " Subvolume for your home (y/n)?${RESET}" home_subvolume
 custom_read " Subvolume for your var (y/n)?${RESET}" var_subvolume
 custom_read " Subvolume for your opt (y/n)?${RESET}" opt_subvolume
 custom_read " Subvolume for your srv (y/n)?${RESET}" srv_subvolume
- 
+
+# unmount any previous mounts at /mnt
+if mountpoint -q /mnt; then
+    echo "${INFO} Unmounting any previous mounts at /mnt..."
+    umount -fR /mnt
+fi
+
 confirm_format(){
     local formatting_command="$1"
     local device="$2"
