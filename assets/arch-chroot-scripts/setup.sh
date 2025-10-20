@@ -9,6 +9,10 @@ source "$(dirname $(readlink -f $0))/Global_functions.sh"
 
 efi_directory="$1"
 
+if [ -z "$efi_directory" ]; then
+    efi_directory="/boot"
+fi
+
 # Set the timezone
 echo
 echo "${INFO} Setting timezone $timezone${RESET}"
@@ -18,7 +22,7 @@ command "hwclock --systohc"
 # Set the locale
 echo
 another_locale="Y"
-while [ "$another_locale" != "y" ] || [ "$another_locale" != "Y" ]; do
+while [ "$another_locale" == "y" ] || [ "$another_locale" == "Y" ]; do
     unset another_locale
 
     custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF-8, es_ES.UTF-8 UTF-8)${RESET}" locale
