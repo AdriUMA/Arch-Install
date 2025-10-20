@@ -86,6 +86,8 @@ device="$boot_device"
 formatting_command="mkfs.fat -F32 $device"
 location="/mnt$boot_mnt_location"
 confirm_format "$formatting_command" "$device" "$location"
+mkdir -p "$location"
+command "mount $device $location"
 
 # Format the swap partition
 if [[ "$swap_device" != "none" ]]; then
