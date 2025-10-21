@@ -43,16 +43,10 @@ command "ls /sys/firmware/efi/efivars"
 echo "${OK} EFI mode detected.${RESET}"
 echo
 
-# Timezone
-custom_read " Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
-echo "${INFO} Setting timezone...${RESET}"
-command "timedatectl set-timezone $timezone"
-command timedatectl set-ntp true
-echo
-
 # WiFi or Ethernet mandatory
 set +e
-while true; then
+while true;
+do
     execute_script "check_internet.sh"
     if [  "$?" == 0 ]; then
         break;
@@ -66,9 +60,16 @@ while true; then
         execute_script "wifi_iwctl.sh"
         echo
     fi
-fi
+done
 set -e
 
+echo
+
+# Timezone
+custom_read " Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
+echo "${INFO} Setting timezone...${RESET}"
+command "timedatectl set-timezone $timezone"
+command timedatectl set-ntp true
 echo
 
 # Partitions
