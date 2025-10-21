@@ -52,7 +52,7 @@ echo
 
 # WiFi or Ethernet
 set +e
-if [ ( execute_script "check_internet.sh" ) ]; then
+if [ $( execute_script "check_internet.sh" ) ]; then
     echo "${OK} Internet connection detected.${RESET}"
 else
     echo "${WARNING} No internet connection detected.${RESET}"
