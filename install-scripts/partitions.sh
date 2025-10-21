@@ -24,7 +24,8 @@ while [[ "$retry_step" =~ ^[Yy]$ ]]; do
     echo
 
     unset partition_device
-    custom_read " Please enter a device for partitioning (e.g. /dev/sda)${RESET}" partition_device
+    custom_read " Please enter a device for unmount, if necesary, and partitioning (e.g. /dev/sda)${RESET}" partition_device
+    command "umount -Rf $location"
     cfdisk "$partition_device"
 
     # Ask if the user wants to continue installation or retry this script
