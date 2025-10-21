@@ -2,7 +2,7 @@
 unset retry_step
 unset proceed_partitions
 
-echo "${YELLOW}Partitions${RESET}"
+echo "${YELLOW}Partitioning${RESET}"
 echo
 echo "${WARNING}ATTENTION: If you don't know what you are doing, proceed with caution! Data loss may occur!${RESET}"
 echo "$(colorize_prompt "$NOTE"  " cfdisk will be used" )"
@@ -18,14 +18,13 @@ fi
 
 retry_step="Y"
 while [[ "$retry_step" =~ ^[Yy]$ ]]; do
-
     echo
     lsblk
     echo
 
     unset partition_device
     custom_read " Please enter a device for unmount, if necesary, and partitioning (e.g. /dev/sda)${RESET}" partition_device
-    command "umount -Rf $location"
+    command "umount -Rf /mnt"
     cfdisk "$partition_device"
 
     # Ask if the user wants to continue installation or retry this script
