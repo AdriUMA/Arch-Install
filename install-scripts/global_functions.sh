@@ -133,6 +133,10 @@ command_verbose(){
 
   echo "${INFO} Running verbose: $cmd" | tee -a "$LOG_FILE"
 
+  if [ ! -z "$2" ]; then
+    sleep "$2"
+  fi
+
   if eval "$cmd"; then 
       echo "${OK} Success." | tee -a "$LOG_FILE"
   else

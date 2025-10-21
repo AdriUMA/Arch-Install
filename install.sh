@@ -94,11 +94,6 @@ echo
 
 # CPU vendor
 ask_custom_option " Enter your CPU vendor" "intel amd none" cpu_vendor
-
-echo
-echo "${INFO} Installing the base system...${RESET}"
-echo "${INFO}This may take a while, please be patient...${RESET}"
-
 cpu_vendor_ucode=""
 if [ "$cpu_vendor" = "intel" ]; then
     cpu_vendor_ucode="intel-ucode"
@@ -108,7 +103,6 @@ fi
 
 # GPU drivers
 ask_custom_option " Select your GPU vendor" "intel amd nvidia none" gpu_vendor
-
 gpu_packages=""
 if [ "$gpu_vendor" = "intel" ]; then
     gpu_packages="mesa xf86-video-intel"
@@ -128,7 +122,10 @@ elif [ "$gpu_vendor" = "nvidia" ]; then
 fi
 
 # Install the base system
-command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $cpu_vendor_ucode $gpu_packages"
+echo
+echo "${INFO} Installing the base system...${RESET}"
+echo "${INFO}This may take a while, please be patient...${RESET}"
+command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $cpu_vendor_ucode $gpu_packages" 1
 
 # Generate fstab
 echo

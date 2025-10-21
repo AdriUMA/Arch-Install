@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "${INFO} Checking if /mnt is a separate mounted device..." | tee -a "$LOG_FILE"
+echo "${INFO} Checking /mnt status for installation..." | tee -a "$LOG_FILE"
 
 # Verificar si /mnt es una unidad montada y no solo una carpeta
 if ! findmnt -n /mnt > /dev/null; then
@@ -13,7 +13,7 @@ mnt_device=$(findmnt -n -o SOURCE /mnt)
 root_device=$(findmnt -n -o SOURCE /)
 
 if [ "$mnt_device" = "$root_device" ]; then
-    echo "${ERROR} /mnt is on the same device as root. Aborting..." | tee -a "$LOG_FILE"
+    echo "${ERROR} /mnt is on the same device as live. Aborting..." | tee -a "$LOG_FILE"
     return 1
 fi
 

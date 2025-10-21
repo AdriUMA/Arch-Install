@@ -123,4 +123,4 @@ fi
 echo "$boot_mnt_location" > /mnt/.efi_mount_location
 
 echo
-echo "${OK} Formatting and mounting completed!${RESET}"
+echo "${INFO} Formatting and mounting completed!${RESET}"
