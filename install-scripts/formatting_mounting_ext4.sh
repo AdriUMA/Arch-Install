@@ -1,4 +1,4 @@
-echo "${MAGENTA}Formatting and Mounting (ext4)${RESET}"
+echo "${YELLOW}Formatting and Mounting ${MAGENTA}(ext4)${RESET}"
 echo
 lsblk
 echo

@@ -69,7 +69,7 @@ echo
 custom_read " Please enter your timezone (ex. Europe/Madrid)${RESET}" timezone
 echo "${INFO} Setting timezone...${RESET}"
 command "timedatectl set-timezone $timezone"
-command timedatectl set-ntp true
+command "timedatectl set-ntp true"
 echo
 
 # Partitions

@@ -1,4 +1,4 @@
-echo "${MAGENTA}Formatting and Mounting (btrfs)${RESET}"
+echo "${YELLOW}Formatting and Mounting ${MAGENTA}(btrfs)${RESET}"
 echo
 lsblk
 echo
