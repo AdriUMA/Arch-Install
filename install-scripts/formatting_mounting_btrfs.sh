@@ -1,5 +1,4 @@
-echo "${MAGENTA}Formatting and Mounting${RESET}"
-echo "${WARNING}ATTENTION: At this point, you should have the partition and swap space ready.${RESET}"
+echo "${MAGENTA}Formatting and Mounting (btrfs)${RESET}"
 echo
 lsblk
 echo
@@ -11,10 +10,10 @@ custom_read " Please enter the device for your swap (e.g. /dev/sda3 or none)${RE
 custom_read " Please enter the EFI mount location (e.g. /boot or /boot/efi)${RESET}" boot_mnt_location
 
 # what subvolumes
-custom_read " Subvolume for your home (y/n)?${RESET}" home_subvolume
-custom_read " Subvolume for your var (y/n)?${RESET}" var_subvolume
-custom_read " Subvolume for your opt (y/n)?${RESET}" opt_subvolume
-custom_read " Subvolume for your srv (y/n)?${RESET}" srv_subvolume
+ask_yes_no " Subvolume for your home (y/n)?${RESET}" home_subvolume
+ask_yes_no " Subvolume for your var (y/n)?${RESET}" var_subvolume
+ask_yes_no " Subvolume for your opt (y/n)?${RESET}" opt_subvolume
+ask_yes_no " Subvolume for your srv (y/n)?${RESET}" srv_subvolume
 
 # unmount any previous mounts at /mnt
 if mountpoint -q /mnt; then

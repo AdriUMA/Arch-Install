@@ -1,11 +1,11 @@
-# If preset.sh is provided, define it (this is for Global_functions.sh):
+# If preset.sh is provided, define it (this is for global_functions.sh):
 preset_location="$(dirname $(readlink -f $0))/preset.sh"
 
 if [ -f "$preset_location" ]; then
     use_preset="$preset_location"
 fi
 
-source "$(dirname $(readlink -f $0))/Global_functions.sh"
+source "$(dirname $(readlink -f $0))/global_functions.sh"
 
 efi_directory="$1"
 

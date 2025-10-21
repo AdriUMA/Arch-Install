@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 clear
 
 # Check if --preset argument is provided
@@ -13,7 +13,7 @@ if [[ "$1" == "--preset" ]]; then
     use_preset="$(realpath $2)"
 fi
 
-source "install-scripts/Global_functions.sh"
+source "install-scripts/global_functions.sh"
 
 printf "\n%.0s" {1..2}  
 echo -e "\e[35m\n
@@ -26,8 +26,6 @@ printf "\n%.0s" {1..1}
 echo "${SKY_BLUE}Welcome to Adri's Arch Install Script!${RESET}"
 echo
 echo "${YELLOW}NOTE: You will be required to answer some questions during the installation! ${RESET}"
-echo
-echo "${WARNING}ATTENTION: Before proceeding, make sure you have disks and partitions ready!${RESET}"
 echo
 read -p "${CAT} ${SKY_BLUE}Would you like to proceed? (y/n): ${RESET}" proceed
 
@@ -53,15 +51,27 @@ command timedatectl set-ntp true
 echo
 
 # WiFi or Ethernet
-ask_yes_no " Do you want to use WiFi?" wifi
+set +e
+if [ execute_script "check_internet.sh" ]; then
+    echo "${OK} Internet connection detected.${RESET}"
+else
+    echo "${WARNING} No internet connection detected.${RESET}"
 
-if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
-    execute_script "wifi_iwctl.sh"
+    ask_yes_no " Do you want to use WiFi?" wifi
+
+    if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
+        execute_script "wifi_iwctl.sh"
+    fi
+
+    # Check internet connection
+    execute_script "check_internet.sh"
 fi
+set -e
 
-# Check internet connection
-execute_script "check_internet.sh"
+echo
 
+# Partitions
+execute_script "partitions.sh"
 echo
 
 # Format and mount partitions
