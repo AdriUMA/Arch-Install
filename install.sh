@@ -50,22 +50,22 @@ command "timedatectl set-timezone $timezone"
 command timedatectl set-ntp true
 echo
 
-# WiFi or Ethernet
+# WiFi or Ethernet mandatory
 set +e
-execute_script "check_internet.sh"
-if [  "$?" == 0 ]; then
-    echo "${OK} Internet connection detected.${RESET}"
-else
-    echo "${WARNING} No internet connection detected.${RESET}"
+while true; then
+    execute_script "check_internet.sh"
+    if [  "$?" == 0 ]; then
+        break;
+    fi
+
+    echo
 
     ask_yes_no " Do you want to use WiFi?" wifi
 
     if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then
         execute_script "wifi_iwctl.sh"
+        echo
     fi
-
-    # Check internet connection
-    execute_script "check_internet.sh"
 fi
 set -e
 

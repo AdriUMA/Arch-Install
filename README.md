@@ -6,8 +6,9 @@
 ### ⚠️ Cautions ⚠️
 
 - Only UEFI support (keep reading if you dont know what system is yours).
-- Install Windows before Arch for dual boot. Dual boot installation will fail if you have Windows 11 with BitLocker enabled.
+- Install Windows before Arch for dual boot. Dual boot installation may fail if you have Windows 11 with BitLocker enabled.
 - If for any reason SecureBoot needs to be enabled after installing Arch, I recommend deleting all BIOS keys before starting.
+- Internet is mandatory.
 
 ### 💿 Preparation
 
