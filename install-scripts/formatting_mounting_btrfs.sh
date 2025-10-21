@@ -4,21 +4,24 @@ lsblk
 echo
 
 # what devices
-custom_read " Please enter the device for your btrfs partition (e.g. /dev/sda1)${RESET}" root_device
-custom_read " Please enter the device for your boot partition (e.g. /dev/sda2)${RESET}" boot_device
-custom_read " Please enter the device for your swap (e.g. /dev/sda3 or none)${RESET}" swap_device
-custom_read " Please enter the EFI mount location (e.g. /boot or /boot/efi)${RESET}" boot_mnt_location
+custom_read " Please enter the device for your btrfs partition (e.g. /dev/sda1)" root_device
+custom_read " Please enter the device for your boot partition (e.g. /dev/sda2)" boot_device
+custom_read " Please enter the device for your swap (e.g. /dev/sda3 or none)" swap_device
+custom_read " Please enter the EFI mount location (e.g. /boot or /boot/efi)" boot_mnt_location
 
 # what subvolumes
-ask_yes_no " Subvolume for your home (y/n)?${RESET}" home_subvolume
-ask_yes_no " Subvolume for your var (y/n)?${RESET}" var_subvolume
-ask_yes_no " Subvolume for your opt (y/n)?${RESET}" opt_subvolume
-ask_yes_no " Subvolume for your srv (y/n)?${RESET}" srv_subvolume
+ask_yes_no " Subvolume for your home?" home_subvolume
+ask_yes_no " Subvolume for your var?$" var_subvolume
+ask_yes_no " Subvolume for your opt?" opt_subvolume
+ask_yes_no " Subvolume for your srv?" srv_subvolume
+
+echo
 
 # unmount any previous mounts at /mnt
 if mountpoint -q /mnt; then
     echo "${INFO} Unmounting any previous mounts at /mnt..."
     umount -fR /mnt
+    echo
 fi
 
 confirm_format(){
@@ -71,6 +74,8 @@ location="/mnt"
 confirm_format "$formatting_command" "$device" "$location"
 
 # Mount the btrfs partition temporarily to create subvolumes
+echo
+echo "${INFO} Creating and mounting btrfs subvolumes..."
 command "mount $device $location"
 subvolume_create "@" "/mnt"
 [[ "$home_subvolume" =~ ^[Yy]$ ]] && subvolume_create "@home" "/mnt"
@@ -79,7 +84,12 @@ subvolume_create "@" "/mnt"
 [[ "$srv_subvolume" =~ ^[Yy]$ ]] && subvolume_create "@srv" "/mnt"
 
 # Unmount the btrfs partition and mount the subvolumes
+echo 
+echo "${INFO} Unmounting btrfs subvolumes..."
 command "umount -Rf $location"
+
+echo
+echo "${INFO} Mounting subvolumes..."
 subvolume_mount "@" "$location" "zstd"
 [[ "$home_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@home" "/mnt/home" "zstd"
 [[ "$var_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@var" "/mnt/var" "zstd"
@@ -87,6 +97,8 @@ subvolume_mount "@" "$location" "zstd"
 [[ "$srv_subvolume" =~ ^[Yy]$ ]] && subvolume_mount "@srv" "/mnt/srv" "zstd"
 
 # Format and mount de boot partition
+echo
+echo "${INFO} Formatting and mounting the boot partition..."
 device="$boot_device"
 formatting_command="mkfs.fat -F32 $device"
 location="/mnt$boot_mnt_location"
@@ -95,6 +107,8 @@ mkdir -p "$location"
 command "mount $device $location"
 
 # Format the swap partition
+echo
+echo "${INFO} Setting up swap partition..."
 if [[ "$swap_device" != "none" ]]; then
     if [ "$format_and_mount_ask" != "n" ] && [ "$format_and_mount_ask" != "N" ]; then
         echo "${INFO} mkswap and swapon $swap_device"
@@ -107,4 +121,6 @@ if [[ "$swap_device" != "none" ]]; then
 fi
 
 echo "$boot_mnt_location" > /mnt/.efi_mount_location
-echo "${INFO} Formatting and mounting completed!${RESET}"
+
+echo
+echo "${OK} Formatting and mounting completed!${RESET}"

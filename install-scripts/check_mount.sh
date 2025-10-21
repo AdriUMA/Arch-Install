@@ -20,9 +20,9 @@ fi
 # Verificar si la unidad montada en /mnt tiene más de 10GB de espacio total
 mnt_size=$(df -BG --output=size /mnt | tail -n1 | tr -dc '0-9')
 
-if [ "$mnt_size" -lt 10 ]; then
-    echo "${ERROR} /mnt is mounted but has less than 10GB. Aborting..." | tee -a "$LOG_FILE"
+if [ "$mnt_size" -lt 6 ]; then
+    echo "${ERROR} /mnt is mounted but has less than 6GB. Aborting..." | tee -a "$LOG_FILE"
     return 1
 fi
 
-echo "${OK} /mnt is a separate mounted device with more than 10GB." | tee -a "$LOG_FILE"
+echo "${OK} /mnt is a separate mounted device with more than 6GB." | tee -a "$LOG_FILE"
