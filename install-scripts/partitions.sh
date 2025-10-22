@@ -3,8 +3,8 @@ unset retry_step
 unset proceed_partitions
 
 echo "${YELLOW}Partitioning${RESET}"
-echo
 echo "${WARNING}ATTENTION: If you don't know what you are doing, proceed with caution! Data loss may occur!${RESET}"
+echo
 echo "$(colorize_prompt "$NOTE"  " cfdisk will be used" )"
 
 ask_yes_no " Do you want to proceed?" proceed_partitions
