@@ -121,7 +121,7 @@ echo "${INFO} Installing GRUB...${RESET}"
 command "grub-install --target=x86_64-efi --efi-directory=$efi_directory --bootloader-id=GRUB"
 
 echo "${INFO} Generating GRUB configuration...${RESET}"
-command "grub-mkconfig -o $efi_directory/grub/grub.cfg"
+command "grub-mkconfig -o /boot/grub/grub.cfg"
 
 echo "${INFO} GRUB installed!${RESET}"
 
