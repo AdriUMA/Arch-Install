@@ -11,7 +11,7 @@ custom_read " Please enter the EFI mount location (e.g. /boot or /boot/efi)" boo
 
 # what subvolumes
 ask_yes_no " Subvolume for your home?" home_subvolume
-ask_yes_no " Subvolume for your var?$" var_subvolume
+ask_yes_no " Subvolume for your var?" var_subvolume
 ask_yes_no " Subvolume for your opt?" opt_subvolume
 ask_yes_no " Subvolume for your srv?" srv_subvolume
 

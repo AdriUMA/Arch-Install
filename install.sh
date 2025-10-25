@@ -147,7 +147,7 @@ command "chmod +x /mnt/root/arch-chroot-scripts/*"
 # Enter the new system
 echo
 echo ${INFO} Entering the new system...${RESET}
-command_verbose "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh -- $efi_directory"
+command_verbose "arch-chroot /mnt /root/arch-chroot-scripts/setup.sh $efi_directory"
 
 # Remove the arch-chroot-scripts directory from the new system
 echo
@@ -165,7 +165,7 @@ if [ "$reboot" = "y" ] || [ "$reboot" = "Y" ]; then
     echo
     echo ${INFO} Rebooting...${RESET}
     echo
-    umount -R /mnt
+    umount -Rf /mnt
     reboot
 else
     echo
