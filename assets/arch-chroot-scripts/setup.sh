@@ -22,12 +22,19 @@ command "hwclock --systohc"
 # Set the locale
 echo
 another_locale="Y"
+first="Y"
 while [ "$another_locale" == "y" ] || [ "$another_locale" == "Y" ]; do
     unset another_locale
 
     custom_read " Please enter the locale you want to add (ex. en_US.UTF-8 UTF-8, es_ES.UTF-8 UTF-8)${RESET}" locale
-    echo "$locale" >> /etc/locale.gen
     
+    if [ "$first" == "Y" ]; then
+        first="N"
+        echo "$locale" > /etc/locale.gen
+    else
+        echo "$locale" >> /etc/locale.gen
+    fi
+
     # If we are running using preset, we don't want to ask for more locales
     if [ ! -z "$use_preset" ]; then
         break
