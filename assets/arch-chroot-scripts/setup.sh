@@ -60,7 +60,7 @@ echo
 custom_read " Please enter your hostname${RESET}" hostname
 echo "${INFO} Setting hostname $hostname${RESET}"
 echo "$hostname" > /etc/hostname
-echo "127.0.0.1     localhost" >> /etc/hosts
+echo "127.0.0.1     localhost" > /etc/hosts
 echo "::1           localhost" >> /etc/hosts
 echo "127.0.1.1     $hostname.localhost        $hostname" >> /etc/hosts
 
@@ -98,7 +98,7 @@ fi
 # User groups and sudo
 echo "${INFO} Groups and sudo for $user_name...${RESET}"
 command "usermod -aG wheel,video,audio,storage $user_name"
-command "sed -i 's/^#\s*\(%wheel ALL=(ALL:ALL ALL\)/\1/' /etc/sudoers"
+command "sed -i '/^#\s*%wheel ALL=(ALL:ALL) ALL/s/^#\s*//' /etc/sudoers"
 
 # Configure wifi for next boot
 if [ "$wifi" = "y" ] || [ "$wifi" = "Y" ]; then

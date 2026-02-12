@@ -33,6 +33,9 @@ rfkill unblock all
 iwctl device list
 iwctl device DEVICE-NAME set-property Powered on
 iwctl station DEVICE-NAME connect-hidden "WIFI_SSID" --passphrase "WIFI_PASS"
+
+-- NetworkManger option
+nmcli device wifi connect "WIFI_SSID" password "WIFI_PASS"
 ```
 
 Check internet connection.

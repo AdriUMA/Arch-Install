@@ -121,11 +121,16 @@ elif [ "$gpu_vendor" = "nvidia" ]; then
     esac
 fi
 
+btrfs_pkg=""
+if [ "$formatting_script" = "btrfs" ]; then
+    btrfs_pkg="btrfs-progs"
+fi
+
 # Install the base system
 echo
 echo "${INFO} Installing the base system...${RESET}"
 echo "${INFO}This may take a while, please be patient...${RESET}"
-command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $cpu_vendor_ucode $gpu_packages" 1
+command_verbose "pacstrap /mnt base linux linux-firmware git sudo nano networkmanager $btrfs_pkg $cpu_vendor_ucode $gpu_packages" 1
 
 # Generate fstab
 echo
